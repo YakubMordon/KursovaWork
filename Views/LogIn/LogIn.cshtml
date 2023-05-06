@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "LogIn";
+}
+@model LogInViewModel
+
+<script>
+    var element = document.querySelector('.header');
+    element.remove();
+</script>
+<div class="splitted-page">
+    <div class="left-side">
+        <div class="input-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <h2 class="text-center mb-4">VAG ID Login</h2>
+                        <div class="customLogInHeader fs-5">
+                            <p>
+                                Ви ще немаєте VAG ID? Нажміть
+                                <a class="text-black" asp-area="" asp-controller="LogIn" asp-action="SignUp">тут</a>
+                            </p>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @using (Html.BeginForm("LogIn", "LogIn", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                        {
+                            <div class="form-group">
+                                <p class="emailP fs-6">VAG ID (Електронна пошта)</p>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control-custom", placeholder = "Email адреса", required = "required", autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <p class="passwordP fs-6">Пароль</p>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control-custom", placeholder = "Пароль", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+
+
+                            <div class="form-group login-button">
+                                <button type="submit" class="btn btn-primary btn-block">Ввійти</button>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-side"></div>
+    <div class="right-side-mobile"></div>
+</div>
+
+
+
+
+
