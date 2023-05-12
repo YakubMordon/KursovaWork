@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KursovaWork.Migrations
 {
     [DbContext(typeof(CarSaleContext))]
-    [Migration("20230506075002_addedNewEntities")]
-    partial class addedNewEntities
+    [Migration("20230512220243_addedEncryptionForPassword")]
+    partial class addedEncryptionForPassword
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,8 +122,7 @@ namespace KursovaWork.Migrations
 
                     b.Property<string>("CVV")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CardHolderName")
                         .IsRequired()
@@ -135,13 +134,11 @@ namespace KursovaWork.Migrations
 
                     b.Property<string>("ExpirationMonth")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExpirationYear")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KursovaWork.Migrations
 {
     [DbContext(typeof(CarSaleContext))]
-    [Migration("20230502101426_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230512222707_upgradedEncryption")]
+    partial class upgradedEncryption
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace KursovaWork.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarDetail", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace KursovaWork.Migrations
                     b.ToTable("CarDetails");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarImage", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace KursovaWork.Migrations
                     b.ToTable("CarImages");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarInfo", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,7 +115,37 @@ namespace KursovaWork.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Order", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Card", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardHolderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpirationMonth")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExpirationYear")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("KursovaWork.Entity.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,10 +155,6 @@ namespace KursovaWork.Migrations
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
-
-                    b.Property<string>("CreditCard")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -148,7 +174,7 @@ namespace KursovaWork.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.User", b =>
+            modelBuilder.Entity("KursovaWork.Entity.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,20 +213,20 @@ namespace KursovaWork.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarDetail", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarDetail", b =>
                 {
-                    b.HasOne("KursovaWork.Controllers.Entity.Car.CarInfo", "Car")
+                    b.HasOne("KursovaWork.Entity.Car.CarInfo", "Car")
                         .WithOne("Detail")
-                        .HasForeignKey("KursovaWork.Controllers.Entity.Car.CarDetail", "CarId")
+                        .HasForeignKey("KursovaWork.Entity.Car.CarDetail", "CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarImage", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarImage", b =>
                 {
-                    b.HasOne("KursovaWork.Controllers.Entity.Car.CarInfo", "Car")
+                    b.HasOne("KursovaWork.Entity.Car.CarInfo", "Car")
                         .WithMany("Images")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -209,15 +235,26 @@ namespace KursovaWork.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Order", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Card", b =>
                 {
-                    b.HasOne("KursovaWork.Controllers.Entity.Car.CarInfo", "Car")
+                    b.HasOne("KursovaWork.Entity.User", "User")
+                        .WithOne("CreditCard")
+                        .HasForeignKey("KursovaWork.Entity.Card", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KursovaWork.Entity.Order", b =>
+                {
+                    b.HasOne("KursovaWork.Entity.Car.CarInfo", "Car")
                         .WithMany("Orders")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KursovaWork.Controllers.Entity.User", "User")
+                    b.HasOne("KursovaWork.Entity.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -228,7 +265,7 @@ namespace KursovaWork.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.Car.CarInfo", b =>
+            modelBuilder.Entity("KursovaWork.Entity.Car.CarInfo", b =>
                 {
                     b.Navigation("Detail")
                         .IsRequired();
@@ -238,8 +275,11 @@ namespace KursovaWork.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("KursovaWork.Controllers.Entity.User", b =>
+            modelBuilder.Entity("KursovaWork.Entity.User", b =>
                 {
+                    b.Navigation("CreditCard")
+                        .IsRequired();
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618

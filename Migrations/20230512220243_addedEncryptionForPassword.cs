@@ -5,7 +5,7 @@
 namespace KursovaWork.Migrations
 {
     /// <inheritdoc />
-    public partial class addedEntities : Migration
+    public partial class addedEncryptionForPassword : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

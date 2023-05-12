@@ -17,15 +17,12 @@ namespace KursovaWork.Entity
         public string CardHolderName { get; set; }
 
         [Required]
-        [StringLength(2, MinimumLength = 2)]
         public string ExpirationMonth { get; set; }
 
         [Required]
-        [StringLength(2, MinimumLength = 2)]
         public string ExpirationYear { get; set; }
 
         [Required]
-        [StringLength(3, MinimumLength = 3)]
         public string CVV { get; set; }
 
         public virtual User User { get; set; }

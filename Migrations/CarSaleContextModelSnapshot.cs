@@ -119,8 +119,7 @@ namespace KursovaWork.Migrations
 
                     b.Property<string>("CVV")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CardHolderName")
                         .IsRequired()
@@ -132,13 +131,11 @@ namespace KursovaWork.Migrations
 
                     b.Property<string>("ExpirationMonth")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExpirationYear")
                         .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
