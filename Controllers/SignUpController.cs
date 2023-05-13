@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Entity;
 using KursovaWork.Models;
-
+using KursovaWork.Entity;
 
 namespace KursovaWork.Controllers
 {

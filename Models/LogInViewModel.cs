@@ -1,4 +1,5 @@
 ﻿using KursovaWork.Entity;
+using KursovaWork.Entity.Entities;
 using KursovaWork.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;

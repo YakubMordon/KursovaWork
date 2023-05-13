@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using KursovaWork.Entity;
 using Microsoft.EntityFrameworkCore;
+using KursovaWork.Entity;
 
 namespace KursovaWork.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using KursovaWork.Entity;
-using KursovaWork.Entity.Car;
+using KursovaWork.Entity.Entities.Car;
 
 namespace KursovaWork.Services
 {

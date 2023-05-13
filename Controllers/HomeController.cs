@@ -7,8 +7,9 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
+using KursovaWork.Entity.Entities.Car;
+using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
-using KursovaWork.Entity.Car;
 
 namespace KursovaWork.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using KursovaWork.Entity.Car;
+using KursovaWork.Entity.Entities.Car;
 
-namespace KursovaWork.Entity
+namespace KursovaWork.Entity.Entities
 {
     public class Order
     {

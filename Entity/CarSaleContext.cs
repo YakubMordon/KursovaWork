@@ -1,4 +1,5 @@
-﻿using KursovaWork.Entity.Car;
+﻿using KursovaWork.Entity.Entities.Car;
+using KursovaWork.Entity.Entities;
 using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
 

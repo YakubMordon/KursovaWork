@@ -1,4 +1,5 @@
 ﻿using KursovaWork.Entity;
+using KursovaWork.Entity.Entities;
 using KursovaWork.Models;
 using KursovaWork.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -77,6 +78,22 @@ namespace KursovaWork.Controllers
             return View(model);
         }
 
+        public IActionResult DeleteCreditCard()
+        {
+            int loggedInUserId = _IDRetriever.GetLoggedInUserId();
 
+            var creditCard = _context.Cards.FirstOrDefault(c => c.UserId == loggedInUserId);
+
+            if (creditCard != null)
+            {
+                _context.Cards.Remove(creditCard);
+                _context.SaveChanges();
+            }
+
+            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+            ViewBag.Input = false;
+
+            return View("~/Views/CreditCard/CreditCard.cshtml");
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using KursovaWork.Entity;
+using KursovaWork.Entity.Entities;
 
 namespace KursovaWork.Models
 {

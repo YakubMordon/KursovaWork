@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KursovaWork.Entity
+namespace KursovaWork.Entity.Entities
 {
     public class User
     {

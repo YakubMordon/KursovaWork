@@ -29,6 +29,9 @@
                             </div>
                         </div>
                     </div>
+                    <a class="btn btn-primary btn-block text-decoration-none fw-bold mt-2" id="addCreditCardLink" asp-controller="CreditCard" asp-action="DeleteCreditCard">
+                        <i class="fas fa-trash"></i>Відв'язати кредитну карту
+                    </a>
                 </div>
                 <div id="creditCardForm" style="display: none;">
                     @using (Html.BeginForm("CreditCard", "CreditCard", FormMethod.Post))

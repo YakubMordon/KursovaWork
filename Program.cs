@@ -1,9 +1,7 @@
-using KursovaWork.Entity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
-using System.Net;
 using KursovaWork.Services;
+using KursovaWork.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
