@@ -12,9 +12,12 @@ namespace KursovaWork.Controllers
     {
         private readonly CarSaleContext _context;
 
-        public SignUpController(CarSaleContext context)
+        private readonly ILogger<SignUpController> _logger;
+
+        public SignUpController(CarSaleContext context, ILogger<SignUpController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult SignUp()
