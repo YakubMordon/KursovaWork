@@ -9,7 +9,6 @@
 2. Ввійти в термінал управління пакетами NuGet та ввести наступні речі:
     - Add-migration "Довільна назва"
     - Update-database
-    - Install-Package BCrypt.Net
 
 
 Все, веб-сайт готовий до користання!
