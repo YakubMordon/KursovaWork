@@ -1,9 +1,6 @@
 ﻿using KursovaWork.Entity.Car;
 using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace KursovaWork.Entity
 {
@@ -46,14 +43,13 @@ namespace KursovaWork.Entity
 
             // Додання шифрування кредитної карти
             modelBuilder.Entity<Card>()
-                .Property(o => o.CardNumber)
-                .HasConversion(
-                    card => Encrypter.Encrypt(card),
-                    encryptedCard => Encrypter.Decrypt(encryptedCard)
-                );
+            .Property(o => o.CardNumber)
+            .HasConversion(
+                card => Encrypter.Encrypt(card),
+                encryptedCard => Encrypter.Decrypt(encryptedCard)
+            );
 
             // Додання шифрування місяця
-
             modelBuilder.Entity<Card>()
             .Property(o => o.ExpirationMonth)
             .HasConversion(
@@ -62,15 +58,14 @@ namespace KursovaWork.Entity
             );
 
             // Додання шифрування року
-
             modelBuilder.Entity<Card>()
             .Property(o => o.ExpirationYear)
             .HasConversion(
                 year => Encrypter.EncryptYear(year),
                 encryptedYear => Encrypter.DecryptYear(encryptedYear)
             );
-            // Додання шифрування CVV коду
 
+            // Додання шифрування CVV коду
             modelBuilder.Entity<Card>()
             .Property(o => o.CVV)
             .HasConversion(
@@ -81,6 +76,10 @@ namespace KursovaWork.Entity
             base.OnModelCreating(modelBuilder);
         }
 
+        public void FillDB()
+        {
+            DbInitializer.Initialize(this);
+        }
     }
 }
 

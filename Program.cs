@@ -19,6 +19,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IDRetriever>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+
 .AddCookie(options =>
 {
     options.LoginPath = "/Home/Index";
@@ -46,6 +47,13 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseAuthentication();
 
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var dbContext = serviceProvider.GetRequiredService<CarSaleContext>();
+
+    dbContext.FillDB();
+}
 
 app.MapControllerRoute(
     name: "default",
