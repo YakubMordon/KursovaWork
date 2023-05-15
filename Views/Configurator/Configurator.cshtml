@@ -21,33 +21,81 @@
 <div class="carBody d-flex flex-column">
     <form asp-action="Submit" asp-controller="Configurator" method="post">
         <div class="form-group">
-            <label for="color">Колір:</label>
-            <select class="form-control" id="color" name="color">
-                <option value="Червоний">Червоний</option>
-                <option value="Синій">Синій</option>
-                <option value="Чорний">Чорний</option>
-                <option value="Білий">Білий</option>
-                <option value="Сріблястий">Сріблястий</option>
-            </select>
+            <h4>Колір</h4>
+            <div class="radio-buttons flex-row justify-content-between">
+                <label>
+                    <input type="radio" name="color" value="Червоний">
+                    <span class="radio-button bg-red"></span>
+                    Червоний
+                </label>
+                <label>
+                    <input type="radio" name="color" value="Синій">
+                    <span class="radio-button bg-blue"></span>
+                    Синій
+                </label>
+                <label>
+                    <input type="radio" name="color" value="Чорний">
+                    <span class="radio-button bg-black"></span>
+                    Чорний
+                </label>
+                <label>
+                    <input type="radio" name="color" value="Білий">
+                    <span class="radio-button bg-light"></span>
+                    Білий
+                </label>
+                <label>
+                    <input type="radio" name="color" value="Сріблястий">
+                    <span class="radio-button bg-silver"></span>
+                    Сріблястий
+                </label>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="transmission">Тип коробки передач:</label>
-            <select class="form-control" id="transmission" name="transmission">
-                <option value="Механічна">Механічна</option>
-                <option value="Автоматична">Автоматична</option>
-                <option value="Роботична">Роботична</option>
-            </select>
+            <h4>Тип коробки передач</h4>
+            <div class="radio-buttons">
+                <label>
+                    <input type="radio" name="transmission" value="Механічна">
+                    <span class="radio-button"></span>
+                    Механічна
+                </label>
+                <label>
+                    <input type="radio" name="transmission" value="Автоматична">
+                    <span class="radio-button"></span>
+                    Автоматична
+                </label>
+                <label>
+                    <input type="radio" name="transmission" value="Роботична">
+                    <span class="radio-button"></span>
+                    Роботична
+                </label>
+            </div>
         </div>
 
         <div class="form-group">
-            <label for="fuelType">Тип палива:</label>
-            <select class="form-control" id="fuelType" name="fuelType">
-                <option value="Бензин">Бензин</option>
-                <option value="Дизель">Дизель</option>
-                <option value="Електричний">Електричний</option>
-                <option value="Гибрид">Гибрид</option>
-            </select>
+            <h4>Тип палива</h4>
+            <div class="radio-buttons">
+                <label>
+                    <input type="radio" name="fuelType" value="Бензин">
+                    <span class="radio-button"></span>
+                    Бензин
+                </label>
+                <label>
+                    <input type="radio" name="fuelType" value="Дизель">
+                    <span class="radio-button"></span>
+                    Дизель
+                </label>
+                <label>
+                    <input type="radio" name="fuelType" value="Електричний">
+                    <span class="radio-button"></span>
+                    Електричний
+                </label>
+                <label>
+                    <input type="radio" name="fuelType" value="Гибрид">
+                    <span class="radio-button"></span>
+                    Гибрид
+                </label>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Зберегти</button>

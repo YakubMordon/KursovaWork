@@ -586,8 +586,76 @@ input:valid {
     margin-top: 3rem;
 }
 
-@media screen and (max-width: 600px) {
+.radio-buttons {
+    display: flex;
+    flex-direction: column;
+}
 
+.radio-buttons label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.radio-buttons input[type="radio"] {
+    display: none;
+}
+
+.radio-buttons .radio-button {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 10px;
+}
+
+.radio-buttons input[type="radio"]:checked + .radio-button {
+    opacity: 0.8;
+    border-color: black;
+}
+
+.radio-buttons input[type="radio"][value="Червоний"] + .radio-button {
+    background-color: red;
+    border-color: red;
+}
+
+.radio-buttons input[type="radio"][value="Синій"] + .radio-button {
+    background-color: blue;
+    border-color: blue;
+}
+
+.radio-buttons input[type="radio"][value="Чорний"] + .radio-button {
+    background-color: black;
+    border-color: black;
+
+}
+
+.radio-buttons input[type="radio"][value="Білий"] + .radio-button {
+    background-color: white;
+    border-color: white;
+
+}
+
+.radio-buttons input[type="radio"][value="Сріблястий"] + .radio-button {
+    background-color: silver;
+    border-color: silver;
+}
+
+.bg-red {
+    background-color: red;
+}
+
+.bg-blue {
+    background-color: blue;
+}
+
+.bg-silver {
+    background-color: silver;
+}
+
+
+@media screen and (max-width: 600px) {
     .creditCard {
         width: 300px;
         height: 180px;
