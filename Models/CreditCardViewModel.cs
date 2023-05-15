@@ -8,7 +8,9 @@ namespace KursovaWork.Models
         [Key]
         [ForeignKey("User")]
         public int UserId { get; set; }
+
 #pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
+        
         [Required(ErrorMessage = "Поле Номер карти є обов'язковим")]
         [StringLength(16, MinimumLength = 16, ErrorMessage = "Довжина номеру карти повинна бути мінімум 16")]
         [RegularExpression(@"^(?:\d{16})$", ErrorMessage = "Неправильний номер карти")]

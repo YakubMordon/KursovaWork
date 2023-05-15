@@ -1,8 +1,97 @@
-﻿@{
+﻿@using KursovaWork.Entity.Entities.Car;
+@{
     ViewBag.Title = "Models";
 }
 
+@model List<CarInfo>
 
+<div class="modelBody">
+    <div class="filters border-bottom">
+        <div class="mb-2 d-flex flex-column">
+            <div>
+                <a class="gasolineFilter btn text-decoration-none mb-1">
+                    <i class="fas fa-plus me-1"></i>Бензинний
+                </a>
+            </div>
+            <div>
+                <a class="electricFilter btn btn-sm text-decoration-none mb-1">
+                    <i class="fas fa-plus me-1"></i>Електричний
+                </a>
+            </div>
+            <div>
+                <button type="button" id="filterButton" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#filterModal">
+                    <i class="fas fa-chevron-right me-1"></i>Показати більше фільтрів
+                </button>
+                <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="filterModalLabel">Меню фільтрів</h5>
+                                <a id="closeCrest" class="close text-decoration-none close-custom text-black" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-check">
+                                    <input class="form-check-input cursor" type="checkbox" id="model1">
+                                    <label class="form-check-label cursor" for="model1">Model1</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input cursor" type="checkbox" id="model2">
+                                    <label class="form-check-label cursor" for="model2">Model2</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input cursor" type="checkbox" id="model3">
+                                    <label class="form-check-label cursor" for="model3">Model3</label>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                                <button type="button" id="applier" class="btn btn-primary">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var filterModal = document.getElementById('filterModal');
+                        var filterButton = document.getElementById('filterButton');
+                        var close = document.getElementById('close');
+                        var closeCrest = document.getElementById('closeCrest');
+                        var applier = document.getElementById('applier');
+
+                        var options = {
+                            backdrop: 'static',
+                            keyboard: false
+                        };
+
+                        var modal = new bootstrap.Modal(filterModal, options);
+
+                        filterButton.addEventListener('click', function () {
+                            modal.show();
+                        });
+
+                        close.addEventListener('click', function () {
+                            modal.hide();
+                        });
+
+                        closeCrest.addEventListener('click', function () {
+                            modal.hide();
+                        });
+
+                        applier.addEventListener('click', function () {
+                            modal.hide();
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="modelList">
+
+    </div>
+</div>
 
 <footer class="footer">
     <div class="LinksContainer">

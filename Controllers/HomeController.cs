@@ -46,7 +46,7 @@ namespace KursovaWork.Controllers
         public IActionResult OrderList()
         {
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
-            List<Order> orders = _context.Orders
+            var orders = _context.Orders
                 .Include(o => o.Car)
                     .ThenInclude(c => c.Detail) 
                 .Where(o => o.UserId == loggedInUserId)
@@ -81,7 +81,7 @@ namespace KursovaWork.Controllers
         }
 
         public IActionResult ModelList()
-        {
+        {      
             return RedirectToAction("ModelList","ModelList");  
         }
 

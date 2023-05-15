@@ -28,6 +28,23 @@ body {
   margin-bottom: 60px;
 }
 
+.border-bottom-black {
+    border-bottom: 1px solid #46596c !important;
+}
+
+.close-custom {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.cursor{
+}
+.cursor:hover{
+    cursor: pointer;
+}
+
 .logo{
     color: black;
     width: 40px;

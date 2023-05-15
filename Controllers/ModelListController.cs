@@ -1,5 +1,6 @@
 ﻿using KursovaWork.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KursovaWork.Controllers
 {
@@ -17,7 +18,12 @@ namespace KursovaWork.Controllers
         public IActionResult ModelList()
         {
             ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-            return View();
+            var cars = _context.Cars
+            .Include(o => o.Detail)
+            .Include(o => o.Images)
+            .ToList();
+
+            return View(cars);
         }
 
         public IActionResult DiscountList()
