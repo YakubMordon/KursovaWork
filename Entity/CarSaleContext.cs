@@ -20,6 +20,8 @@ namespace KursovaWork.Entity
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Card> Cards { get; set; }
+
+        public DbSet<ConfiguratorOptions> ConfiguratorOptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CarInfo>()

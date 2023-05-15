@@ -1,7 +1,7 @@
 ﻿@using KursovaWork.Entity.Entities.Car;
 @model CarInfo;
 @{
-    ViewBag.Title = Model.Make + " " + Model.Model;
+    ViewBag.Title = Model.Make + " " + Model.Model + " - Конфігуратор";
 }
 
 <h2 class="mb-2">@Model.Make @Model.Model</h2>
@@ -19,51 +19,39 @@
 </div>
 
 <div class="carBody d-flex flex-column">
-    <div class="d-flex flex-row gap-3">
-        <a class="btn" asp-action="Payment" asp-controller="Payment" asp-route-param1="@Model.Make" asp-route-param2="@Model.Model" asp-route-param3="@Model.Year">Заказати автомобіль</a>
-        <a class="btn" asp-action="Configurator" asp-controller="Configurator" asp-route-param1="@Model.Make" asp-route-param2="@Model.Model" asp-route-param3="@Model.Year">Сконфігурувати автомобіль</a>
-    </div>
+    <form asp-action="Submit" asp-controller="Configurator" method="post">
+        <div class="form-group">
+            <label for="color">Колір:</label>
+            <select class="form-control" id="color" name="color">
+                <option value="Червоний">Червоний</option>
+                <option value="Синій">Синій</option>
+                <option value="Чорний">Чорний</option>
+                <option value="Білий">Білий</option>
+                <option value="Сріблястий">Сріблястий</option>
+            </select>
+        </div>
 
-    <div class="car-info mt-3">
-        <h4>Опис</h4>
-        <p>@Model.Description</p>
+        <div class="form-group">
+            <label for="transmission">Тип коробки передач:</label>
+            <select class="form-control" id="transmission" name="transmission">
+                <option value="Механічна">Механічна</option>
+                <option value="Автоматична">Автоматична</option>
+                <option value="Роботична">Роботична</option>
+            </select>
+        </div>
 
-        <h4 class="mb-2">Загальні характеристики</h4>
-        <table class="table mt-2">
-            <thead>
-                <tr>
-                    <th>Тип характеристики</th>
-                    <th>Значення характеристики</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Рік</td>
-                    <td>@Model.Year</td>
-                </tr>
+        <div class="form-group">
+            <label for="fuelType">Тип палива:</label>
+            <select class="form-control" id="fuelType" name="fuelType">
+                <option value="Бензин">Бензин</option>
+                <option value="Дизель">Дизель</option>
+                <option value="Електричний">Електричний</option>
+                <option value="Гибрид">Гибрид</option>
+            </select>
+        </div>
 
-                <tr>
-                    <td>Ціна</td>
-                    <td>@Model.Price грн.</td>
-                </tr>
-
-                <tr>
-                    <td>Колір</td>
-                    <td>@Model.Detail?.Color</td>
-                </tr>
-
-                <tr>
-                    <td>Тип коробки передач</td>
-                    <td>@Model.Detail?.Transmission</td>
-                </tr>
-
-                <tr>
-                    <td>Тип палива</td>
-                    <td>@Model.Detail?.FuelType</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <button type="submit" class="btn btn-primary">Зберегти</button>
+    </form>
 </div>
 
 <footer class="footer">

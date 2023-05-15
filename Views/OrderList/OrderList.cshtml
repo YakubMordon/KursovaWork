@@ -27,9 +27,9 @@
                         <td>@order.Id</td>
                         <td>@(order.Car != null ? $"{order.Car.Make} {order.Car.Model}" : "")</td>
                         <td>@(order.Car != null ? order.Car.Year.ToString() : "")</td>
-                        <td>@(order.Car?.Detail?.Color)</td>
-                        <td>@(order.Car?.Detail?.Transmission)</td>
-                        <td>@(order.Car?.Detail?.FuelType)</td>
+                        <td>@(order.ConfiguratorOptions != null ? order.ConfiguratorOptions.Color : order.Car.Detail.Color)</td>
+                        <td>@(order.ConfiguratorOptions != null ? order.ConfiguratorOptions.Transmission : order.Car?.Detail?.Transmission)</td>
+                        <td>@(order.ConfiguratorOptions != null ? order.ConfiguratorOptions.FuelType : order.Car?.Detail?.FuelType)</td>
                         <td>@order.Price грн.</td>
                         <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
                     </tr>

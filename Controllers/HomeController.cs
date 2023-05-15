@@ -52,6 +52,7 @@ namespace KursovaWork.Controllers
             var orders = _context.Orders
                 .Include(o => o.Car)
                     .ThenInclude(c => c.Detail) 
+                .Include(o => o.ConfiguratorOptions)
                 .Where(o => o.UserId == loggedInUserId)
                 .ToList();
             ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
