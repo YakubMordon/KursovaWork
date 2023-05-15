@@ -85,11 +85,6 @@ namespace KursovaWork.Controllers
             return RedirectToAction("ModelList","ModelList");  
         }
 
-        public IActionResult DiscountList()
-        {
-            return RedirectToAction("DiscountList", "ModelList");
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

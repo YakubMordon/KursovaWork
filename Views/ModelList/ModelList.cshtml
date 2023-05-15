@@ -3,52 +3,132 @@
     ViewBag.Title = "Models";
 }
 
-@model List<CarInfo>
+@model FilterViewModel
 
 <div class="modelBody">
     <div class="filters border-bottom">
         <div class="mb-2 d-flex flex-column">
             <div>
-                <a class="gasolineFilter btn text-decoration-none mb-1">
-                    <i class="fas fa-plus me-1"></i>Бензинний
-                </a>
-            </div>
-            <div>
-                <a class="electricFilter btn btn-sm text-decoration-none mb-1">
-                    <i class="fas fa-plus me-1"></i>Електричний
-                </a>
-            </div>
-            <div>
-                <button type="button" id="filterButton" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#filterModal">
-                    <i class="fas fa-chevron-right me-1"></i>Показати більше фільтрів
-                </button>
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="dropdown">
+                        <button class="btn btn-primary btn-sm dropdown-toggle" id="sortDropdownButton" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Виберіть сортування
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-relocate" aria-labelledby="sortDropdownButton">
+                            <ul class="dropdown-container">
+                                <li class="dropdown-item" role="button">
+                                    <a class="dropdown-item" asp-controller="ModelList" asp-action="SortByAlphabet">По алфавіту</a>
+                                </li>
+                                <li class="dropdown-item " role="button">
+                                    <a class="dropdown-item" asp-controller="ModelList" asp-action="SortByPrice" asp-route-param1="cheap">Від дешевих до дорогих</a>
+                                </li>
+                                <li class="dropdown-item" role="button">
+                                    <a class="dropdown-item" asp-controller="ModelList" asp-action="SortByPrice" asp-route-param1="expensive">Від дорогих до дешевих</a>
+                                </li>
+                                <li class="dropdown-item" role="button">
+                                    <a class="dropdown-item" asp-controller="ModelList" asp-action="SortByNovelty">Новинки</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="button" id="filterButton" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#filterModal">
+                        <i class="fas fa-chevron-right me-1"></i>Показати фільтри
+                    </button>
+                </div>
+
                 <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="filterModalLabel">Меню фільтрів</h5>
-                                <a id="closeCrest" class="close text-decoration-none close-custom text-black" data-dismiss="modal" aria-label="Close">
+                                <a id="closeCrest" class="close text-decoration-none close-custom text-black cursor" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-check">
-                                    <input class="form-check-input cursor" type="checkbox" id="model1">
-                                    <label class="form-check-label cursor" for="model1">Model1</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input cursor" type="checkbox" id="model2">
-                                    <label class="form-check-label cursor" for="model2">Model2</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input cursor" type="checkbox" id="model3">
-                                    <label class="form-check-label cursor" for="model3">Model3</label>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
-                                <button type="button" id="applier" class="btn btn-primary">Apply Filters</button>
+                            <div class="modal-body d-flex flex-column justify-content-between">
+                                <form asp-controller="ModelList" asp-action="ApplyFilters" method="get">
+                                    <div class="mb-2">
+                                        <h6>
+                                            Ціна:
+                                        </h6>
+                                        <div class="form-group">
+                                            <label for="priceFrom">Від:</label>
+                                            <input type="number" class="form-control" id="priceFrom" name="PriceFrom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priceTo">До:</label>
+                                            <input type="number" class="form-control" id="priceTo" name="PriceTo">
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>
+                                            Рік виробництва:
+                                        </h6>
+                                        <div class="form-group">
+                                            <label for="yearFrom">Від:</label>
+                                            <input type="number" class="form-control" id="yearFrom" name="YearFrom">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yearTo">До:</label>
+                                            <input type="number" class="form-control" id="yearTo" name="YearTo">
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>
+                                            Тип палива:
+                                        </h6>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedFuelTypes" id="gasoline" value="Бензин">
+                                            <label class="form-check-label cursor" for="gasoline">Бензин</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedFuelTypes" id="diesel" value="Дизель">
+                                            <label class="form-check-label cursor" for="diesel">Дизель</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedFuelTypes" id="electric" value="Електричний">
+                                            <label class="form-check-label cursor" for="electric">Електричний</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedFuelTypes" id="hybrid" value="Гибрид">
+                                            <label class="form-check-label cursor" for="hybrid">Гибрид</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>
+                                            Тип коробки передач:
+                                        </h6>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedTransmissionTypes" id="automatic" value="Автоматична">
+                                            <label class="form-check-label cursor" for="automatic">Автоматична</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedTransmissionTypes" id="robotic" value="Роботична">
+                                            <label class="form-check-label cursor" for="robotic">Роботична</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input cursor" type="checkbox" name="SelectedTransmissionTypes" id="mechanic" value="Механічна">
+                                            <label class="form-check-label cursor" for="mechanic">Механічна</label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <h6>
+                                            Марки:
+                                        </h6>
+                                        @foreach (var make in FilterViewModel.origCars.Select(x => x.Make).Distinct())
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input cursor" type="checkbox" name="SelectedMakes" id="@make" value="@make">
+                                                <label class="form-check-label cursor" for="@make">@make</label>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+                                        <button type="submit" class="btn btn-primary">Застосувати фільтри</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -59,7 +139,6 @@
                         var filterButton = document.getElementById('filterButton');
                         var close = document.getElementById('close');
                         var closeCrest = document.getElementById('closeCrest');
-                        var applier = document.getElementById('applier');
 
                         var options = {
                             backdrop: 'static',
@@ -80,15 +159,61 @@
                             modal.hide();
                         });
 
-                        applier.addEventListener('click', function () {
-                            modal.hide();
+
+                        var transmission = document.querySelectorAll('input[name="SelectedTransmissionTypes"]');
+                        var fuel = document.querySelectorAll('input[name="SelectedFuelTypes"]');
+
+                        transmission.forEach(function (checkbox) {
+                            checkbox.addEventListener('change', function () {
+                                transmission.forEach(function (otherCheckbox) {
+                                    if (otherCheckbox !== checkbox) {
+                                        otherCheckbox.checked = false;
+                                    }
+                                });
+                            });
+                        });
+
+                        fuel.forEach(function (checkbox) {
+                            checkbox.addEventListener('change', function () {
+                                fuel.forEach(function (otherCheckbox) {
+                                    if (otherCheckbox !== checkbox) {
+                                        otherCheckbox.checked = false;
+                                    }
+                                });
+                            });
                         });
                     });
                 </script>
             </div>
         </div>
     </div>
-    <div class="modelList">
+    <div class="modelList mt-2">
+        <div class="container card-background">
+            <div class="row card-background">
+                @foreach (var car in Model.cars)
+                {
+                    <div class="col-md-4 mb-2 card-background">
+                        <a class="text-decoration-none" asp-action="" asp-controller="">
+                            <div class="card">
+                                <img src="@car.Images.FirstOrDefault()?.ImageUrl" class="card-img-top" alt="Car Image">
+                                <div class="card-body">
+                                    <h5 class="card-title-car">@car.Make @car.Model</h5>
+                                    <p class="card-text text-color">@car.Description</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Рік: @car.Year</li>
+                                    <li class="list-group-item">Ціна: @car.Price грн.</li>
+                                    <li class="list-group-item">Колір: @car.Detail?.Color</li>
+                                    <li class="list-group-item">Коробка передач: @car.Detail?.Transmission</li>
+                                    <li class="list-group-item">Тип палива: @car.Detail?.FuelType</li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                    
+                }
+            </div>
+        </div>
 
     </div>
 </div>
