@@ -17,15 +17,18 @@ namespace KursovaWork.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        private readonly IEmailSender _emailSender;
+
         private readonly CarSaleContext _context;
 
         private readonly IDRetriever _IDRetriever;
 
-        public HomeController(CarSaleContext context, ILogger<HomeController> logger, IDRetriever idRetriever)
+        public HomeController(CarSaleContext context, ILogger<HomeController> logger, IDRetriever idRetriever, IEmailSender emailSender)
         {
             _context = context;
             _logger = logger;
             _IDRetriever = idRetriever;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()

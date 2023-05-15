@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace KursovaWork.Models
 {
@@ -21,14 +22,67 @@ namespace KursovaWork.Models
 
         [Required(ErrorMessage = "Поле Термін дії(місяць) є обов'язковим")]
         [StringLength(2, MinimumLength = 2, ErrorMessage = "Довжина Терміну дії(місяць) повинна бути мінімум 2")]
+        [FutureMonth(ErrorMessage = "Дата повинна бути або такою ж або більшою")]
         public string ExpirationMonth { get; set; }
 
         [Required(ErrorMessage = "Поле Термін дії(рік) є обов'язковим")]
         [StringLength(2, MinimumLength = 2, ErrorMessage = "Довжина Терміну дії(рік) повинна бути мінімум 2")]
+        [FutureYear(ErrorMessage = "Рік повинен бути більшим або дорівнювати теперешньому")]
         public string ExpirationYear { get; set; }
 
         [Required(ErrorMessage = "Поле CVV є обов'язковим")]
         [StringLength(3, MinimumLength = 3, ErrorMessage = "Довжина CVV повинна бути мінімум 3")]
         public string CVV { get; set; }
     }
+
+    public class FutureYearAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var year = Convert.ToInt32(value);
+            var currentYear = DateTime.Now.Year % 2000;
+
+            if (year < currentYear)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
+            return ValidationResult.Success;
+        }
+    }
+
+    public class FutureMonthAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var month = Convert.ToInt32(value);
+            var yearProperty = validationContext.ObjectType.GetProperty("ExpirationYear");
+            var yearValue = yearProperty.GetValue(validationContext.ObjectInstance);
+
+            if (!int.TryParse(yearValue.ToString(),out var year))
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
+            var currentYear = DateTime.Now.Year % 2000;
+            var currentMonth = DateTime.Now.Month;
+
+            if (year < currentYear)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
+            if (year == currentYear && month < currentMonth)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
+            return ValidationResult.Success;
+
+            
+
+        }
+    }
+
 }
+

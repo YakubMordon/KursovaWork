@@ -582,6 +582,10 @@ input:valid {
     font-family: 'BMW TYPENEXT', sans-serif;
 }
 
+.carBody{
+    margin-top: 3rem;
+}
+
 @media screen and (max-width: 600px) {
 
     .creditCard {
