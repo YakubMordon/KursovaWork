@@ -1,69 +1,13 @@
-﻿@using KursovaWork.Entity.Entities.Car;
-@model CarInfo;
-@{
-    ViewBag.Title = Model.Make + " " + Model.Model;
+﻿@{
+    ViewBag.Title = "Payment";
 }
 
-<h2 class="mb-2">@Model.Make @Model.Model</h2>
-
-<div class="homepage-mainsection">
-    <div class="main-carousel autoplay">
-        @foreach(var image in Model.Images)
-        {
-            <div class="carousel-cell">
-                <img src="@image.ImageUrl"/>
-            </div>
-        }
-
+<div class="d-flex flex-column justify-content-center text-center">
+    <h1>Твоя карта не є підключеною до аккаунту<br>Нажміть кнопку, щоб перейти на додавання карти</h1>
+    <div class="d-flex justify-content-center">
+        <a class="btn mt-2" asp-controller="Home" asp-action="CreditCard">Перейти</a>
     </div>
-</div>
-
-<div class="carBody d-flex flex-column">
-    <div class="d-flex flex-row gap-3">
-        <a class="btn" asp-action="Payment" asp-controller="Payment" asp-route-param1="@Model.Make" asp-route-param2="@Model.Model" asp-route-param3="@Model.Year">Заказати автомобіль</a>
-        <a class="btn" asp-action="" asp-controller="" asp-route-param1="@Model.Make" asp-route-param2="@Model.Model">Сконфігурувати автомобіль</a>
-    </div>
-
-    <div class="car-info mt-3">
-        <h4>Опис</h4>
-        <p>@Model.Description</p>
-
-        <h4 class="mb-2">Загальні характеристики</h4>
-        <table class="table mt-2">
-            <thead>
-                <tr>
-                    <th>Тип характеристики</th>
-                    <th>Значення характеристики</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Рік</td>
-                    <td>@Model.Year</td>
-                </tr>
-
-                <tr>
-                    <td>Ціна</td>
-                    <td>@Model.Price грн.</td>
-                </tr>
-
-                <tr>
-                    <td>Колір</td>
-                    <td>@Model.Detail?.Color</td>
-                </tr>
-
-                <tr>
-                    <td>Тип коробки передач</td>
-                    <td>@Model.Detail?.Transmission</td>
-                </tr>
-
-                <tr>
-                    <td>Тип палива</td>
-                    <td>@Model.Detail?.FuelType</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    
 </div>
 
 <footer class="footer">

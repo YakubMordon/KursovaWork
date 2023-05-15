@@ -18,7 +18,7 @@ namespace KursovaWork.Controllers
             _logger = logger;
         }
 
-        public IActionResult Car(string param1, string param2)
+        public IActionResult Car(string param1, string param2, string param3)
         {
             ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
 
@@ -27,10 +27,11 @@ namespace KursovaWork.Controllers
                 .Include(o => o.Images)
                 .ToList();
             
+            int year = int.Parse(param3);
 
             foreach(var car in cars)
             {
-                if (car.Make.Equals(param1) && car.Model.Equals(param2))
+                if (car.Make.Equals(param1) && car.Model.Equals(param2) && car.Year == year)
                 {
                     return View(car);
                 }
