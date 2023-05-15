@@ -13,12 +13,14 @@ namespace KursovaWork.Models
         {   
         }
 
-        [Required(ErrorMessage = "Поле email є потрібне.")]
-        [EmailAddress(ErrorMessage = "Неправильна email адреса.")]
+        [Required(ErrorMessage = "Поле Електронна пошта є потрібне.")]
+        [EmailAddress(ErrorMessage = "Неправильна Електронна пошта.")]
+        [Display(Name = "Електронна пошта")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Поле паролю є потрібне.")]
         [DataType(DataType.Password)]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         public User ValidateUser(CarSaleContext context)
