@@ -12,7 +12,7 @@ namespace KursovaWork.Controllers
         private readonly CarSaleContext _context;
 
         private readonly ILogger<ConfiguratorController> _logger;
-        public static ConfiguratorOptions _options { get; set; }
+        public static ConfiguratorOptions? _options { get; set; }
 
         private static string[] param = new string[3];
 
