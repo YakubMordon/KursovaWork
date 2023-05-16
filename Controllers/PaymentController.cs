@@ -71,21 +71,19 @@ namespace KursovaWork.Controllers
                 return View("~/Views/Payment/NotLoggedIn.cshtml");
             }
 
-            ConfiguratorOptions temp = null;
-
-            if (ConfiguratorController._options != null)
-            {
-                temp = ConfiguratorController._options;
-            }
-
             Order order = new Order()
             {
                 CarId = _curCar.Id,
                 UserId = loggedInUserId,
                 Price = _curCar.Price,
-                OrderDate = DateTime.Now,
-                ConfiguratorOptions = temp
+                OrderDate = DateTime.Now
             };
+
+            if (ConfiguratorController._options != null)
+            {
+                order.ConfiguratorOptions = ConfiguratorController._options;
+                ConfiguratorController._options = null;
+            }
 
             _context.Orders.Add(order);
 

@@ -49,6 +49,10 @@
                     Сріблястий
                 </label>
             </div>
+            @if (ViewData["ColorError"] != null)
+            {
+                <p class="text-danger">@ViewData["ColorError"]</p>
+            }
         </div>
 
         <div class="form-group">
@@ -70,6 +74,10 @@
                     Роботична
                 </label>
             </div>
+            @if (ViewData["TransmissionError"] != null)
+            {
+                <p class="text-danger">@ViewData["TransmissionError"]</p>
+            }
         </div>
 
         <div class="form-group">
@@ -96,6 +104,10 @@
                     Гибрид
                 </label>
             </div>
+            @if (ViewData["FuelTypeError"] != null)
+            {
+                <p class="text-danger">@ViewData["FuelTypeError"]</p>
+            }
         </div>
 
         <button type="submit" class="btn btn-primary">Зберегти</button>

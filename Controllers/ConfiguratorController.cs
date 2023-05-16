@@ -16,6 +16,8 @@ namespace KursovaWork.Controllers
 
         private static string[] param = new string[3];
 
+        private static CarInfo curCar;
+
         public ConfiguratorController(CarSaleContext context, ILogger<ConfiguratorController> logger)
         {
             _context = context;
@@ -41,6 +43,7 @@ namespace KursovaWork.Controllers
             {
                 if (car.Make.Equals(param1) && car.Model.Equals(param2) && car.Year == year)
                 {
+                    curCar = car;
                     return View(car);
                 }
             }
@@ -50,10 +53,31 @@ namespace KursovaWork.Controllers
 
         public IActionResult Submit(string color, string transmission, string fuelType)
         {
+            if (string.IsNullOrEmpty(color))
+            {
+                ViewData["ColorError"] = "Виберіть колір";
+            }
+
+            if (string.IsNullOrEmpty(transmission))
+            {
+                ViewData["TransmissionError"] = "Виберіть тип коробки передач";
+            }
+
+            if (string.IsNullOrEmpty(fuelType))
+            {
+                ViewData["FuelTypeError"] = "Виберіть тип палива";
+            }
+
             _options = new ConfiguratorOptions();
             _options.Color = color;
             _options.FuelType = fuelType;
             _options.Transmission = transmission;
+
+            if(string.IsNullOrEmpty(color) || string.IsNullOrEmpty(transmission) || string.IsNullOrEmpty(fuelType))
+            {
+                ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+                return View("~/Views/Configurator/Configurator.cshtml",curCar);
+            }
 
             return RedirectToAction("Payment", "Payment", new
             {
