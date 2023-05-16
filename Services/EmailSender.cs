@@ -1,31 +1,26 @@
-﻿using System.Drawing.Drawing2D;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Net.Mail;
-using System.Net;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace KursovaWork.Services
 {
-    public class EmailSender : IEmailSender
+    public class EmailSender
     {
-
-        public Task SendEmailAsync(string email, string subject, string message)
+        public static void SendEmail(string mail, string subject, string message)
         {
-            SmtpClient client = new SmtpClient("smtp.ukr.net", 587)
+            MimeMessage email = new MimeMessage();
+            email.From.Add(new MailboxAddress("VAG Dealer", "baryaroman@ukr.net"));
+            email.To.Add(new MailboxAddress("Шановний покупець", mail));
+            email.Subject = subject;
+            email.Body = new TextPart("html") { Text = message };
+
+            using (SmtpClient smtp = new SmtpClient())
             {
-                UseDefaultCredentials = false,
-                EnableSsl = true,
-                Credentials = new NetworkCredential("baryaroman@ukr.net", "RUA2yFn8oRMAZFAY")
-            };
-
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("baryaroman@ukr.net");
-            mailMessage.To.Add(new MailAddress(email));
-            mailMessage.Subject = subject;
-            mailMessage.Body = message;
-
-            Console.WriteLine("Message was sent successfully...");
-
-            return client.SendMailAsync(mailMessage);
+                smtp.Connect("smtp.ukr.net", 465, SecureSocketOptions.SslOnConnect);
+                smtp.Authenticate("baryaroman@ukr.net", "9OyB6M4t9sLWXW8C");
+                smtp.Send(email);
+                smtp.Disconnect(true);
+            }
         }
     }
 }

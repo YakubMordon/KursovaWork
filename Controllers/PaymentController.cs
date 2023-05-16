@@ -1,6 +1,7 @@
 ﻿using KursovaWork.Entity.Entities.Car;
 using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
+using KursovaWork.Services;
 using Microsoft.AspNetCore.Mvc;
 using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
@@ -88,8 +89,40 @@ namespace KursovaWork.Controllers
             _context.Orders.Add(order);
 
             _context.SaveChanges();
+            User user = _context.Users.SingleOrDefault(o => o.Id == loggedInUserId);
+            string userName = user.FirstName + " " + user.LastName;
+            string userEmail = user.Email;
 
+            string subject = $"Покупка автомобіля №{order.Id}";
+            string body = $@"
+                <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            font-size: 14px;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <h2>Шановний(а) {userName},</h2>
+                    <p>Дякуємо за вашу покупку!</p>
+                    <p>Ви придбали новий автомобіль {_curCar.Make} {_curCar.Model}, {_curCar.Year} року виробництва.</p>
+                    <p>Деталі вашого замовлення:</p>
+                    <ul>
+                        <li>Марка: {_curCar.Make}</li>
+                        <li>Модель: {_curCar.Model}</li>
+                        <li>Рік виробництва: {_curCar.Year} рік</li>
+                    </ul>
+                    <p>Додаткова інформація про замовлення знаходиться у нас на сайті в вашому особистому кабінеті</p>
+                    <p>Якщо у вас виникнуть будь-які питання або потреба у додатковій інформації, будь ласка, зв'яжіться з нашою службою підтримки.</p>
+                    <p>Дякуємо за вашу довіру!</p>
+                    <p>З повагою,</p>
+                    <p>VAG Dealer</p>
+                </body>
+                </html>";
 
+            EmailSender.SendEmail(userEmail, subject, body);
 
             return View("~/Views/Payment/Success.cshtml");
         }

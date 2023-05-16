@@ -2,12 +2,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.WebEncoders.Testing;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Entity.Entities.Car;
 using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
 
@@ -17,24 +14,21 @@ namespace KursovaWork.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IEmailSender _emailSender;
-
         private readonly CarSaleContext _context;
 
         private readonly IDRetriever _IDRetriever;
 
-        public HomeController(CarSaleContext context, ILogger<HomeController> logger, IDRetriever idRetriever, IEmailSender emailSender)
+        public HomeController(CarSaleContext context, ILogger<HomeController> logger, IDRetriever idRetriever)
         {
             _context = context;
             _logger = logger;
             _IDRetriever = idRetriever;
-            _emailSender = emailSender;
         }
 
         public IActionResult Index()
         {
             ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
+            
             return View();
         }
 
@@ -42,7 +36,7 @@ namespace KursovaWork.Controllers
         public IActionResult LogIn()
         {
             ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
+            
             return View("~/Views/LogIn/LogIn.cshtml");
         }
 
@@ -85,7 +79,7 @@ namespace KursovaWork.Controllers
         }
 
         public IActionResult ModelList()
-        {      
+        {
             return RedirectToAction("ModelList","ModelList");  
         }
 

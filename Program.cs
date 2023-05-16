@@ -10,8 +10,6 @@ builder.Services.AddDbContext<CarSaleContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("KursovaWorkContext"));
 });
 
-builder.Services.AddTransient<IEmailSender,EmailSender>();
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
