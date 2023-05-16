@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KursovaWork.Migrations
 {
     [DbContext(typeof(CarSaleContext))]
-    [Migration("20230515213926_addedConfigurator")]
-    partial class addedConfigurator
+    [Migration("20230516135536_initialDB")]
+    partial class initialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

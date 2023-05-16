@@ -76,6 +76,21 @@ namespace KursovaWork.Entity
                 encryptedCVV => Encrypter.DecryptCVV(encryptedCVV)
             );
 
+            // Додання шифрування пароля
+            modelBuilder.Entity<User>()
+                .Property(u => u.Password)
+                .HasConversion(
+                    password => Encrypter.HashPassword(password),
+                    hashedPassword => hashedPassword
+                );
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.ConfirmPassword)
+                .HasConversion(
+                    password => Encrypter.HashPassword(password),
+                    hashedPassword => hashedPassword
+                );
+
             base.OnModelCreating(modelBuilder);
         }
 

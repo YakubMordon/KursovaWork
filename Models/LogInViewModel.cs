@@ -25,7 +25,17 @@ namespace KursovaWork.Models
 
         public User ValidateUser(CarSaleContext context)
         {
-            return context.Users.SingleOrDefault(u => u.Email == Email && u.Password == Password);
+            List<User> users = context.Users.ToList();
+            string hashPassword = Encrypter.HashPassword(Password);
+            foreach(User user in users)
+            {
+                if (user.Email == Email && user.Password == hashPassword)
+                {
+                    return user;
+                }
+            }
+            
+            return null;
         }
 
 
