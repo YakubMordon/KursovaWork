@@ -3,8 +3,14 @@ using KursovaWork.Entity.Entities.Car;
 
 namespace KursovaWork.Services
 {
+    /// <summary>
+    /// Клас для ініціалізації бази даних автомобільного продажу.
+    /// </summary>
     public static class DbInitializer
     {
+        /// <summary>
+        /// Ініціалізує базу даних автомобільного продажу.
+        /// </summary>
         public static void Initialize(CarSaleContext context)
         {
             context.Database.EnsureCreated();

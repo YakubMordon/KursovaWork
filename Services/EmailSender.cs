@@ -4,8 +4,17 @@ using MimeKit;
 
 namespace KursovaWork.Services
 {
+    /// <summary>
+    /// Клас для відправки електронних листів.
+    /// </summary>
     public class EmailSender
     {
+        /// <summary>
+        /// Надсилає електронний лист.
+        /// </summary>
+        /// <param name="mail">Електронна адреса отримувача.</param>
+        /// <param name="subject">Тема листа.</param>
+        /// <param name="message">Тіло листа.</param>
         public static void SendEmail(string mail, string subject, string message)
         {
             MimeMessage email = new MimeMessage();

@@ -5,23 +5,64 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KursovaWork.Entity
 {
+    /// <summary>
+    /// Контекст бази даних для продажу автомобілів.
+    /// </summary>
     public class CarSaleContext : DbContext
     {
+        /// <summary>
+        /// Ініціалізує новий екземпляр класу CarSaleContext з заданими опціями.
+        /// </summary>
+        /// <param name="options">Опції бази даних.</param>
         public CarSaleContext(DbContextOptions<CarSaleContext> options)
         : base(options)
         {
         }
 
+        /// <summary>
+        /// Ініціалізує новий екземпляр класу CarSaleContext.
+        /// </summary>
         public CarSaleContext() : base() { }
 
+        /// <summary>
+        /// Представляє таблицю автомобілів в базі даних.
+        /// </summary>
         public DbSet<CarInfo> Cars { get; set; }
+
+        /// <summary>
+        /// Представляє таблицю зображень автомобілів в базі даних.
+        /// </summary>
         public DbSet<CarImage> CarImages { get; set; }
+
+        /// <summary>
+        /// Представляє таблицю деталей автомобілів в базі даних.
+        /// </summary>
         public DbSet<CarDetail> CarDetails { get; set; }
+
+        /// <summary>
+        /// Представляє таблицю користувачів в базі даних.
+        /// </summary>
         public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Представляє таблицю замовлень автомобілів в базі даних.
+        /// </summary>
         public DbSet<Order> Orders { get; set; }
+
+        /// <summary>
+        /// Представляє таблицю кредитних карт користувачів в базі даних.
+        /// </summary>
         public DbSet<Card> Cards { get; set; }
 
+        /// <summary>
+        /// Представляє таблицю опцій конфігуратора автомобілів в базі даних.
+        /// </summary>
         public DbSet<ConfiguratorOptions> ConfiguratorOptions { get; set; }
+
+        /// <summary>
+        /// Визначає модель бази даних та встановлює зв'язки між таблицями.
+        /// </summary>
+        /// <param name="modelBuilder">Об'єкт, який використовується для побудови моделі.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CarInfo>()
@@ -94,6 +135,9 @@ namespace KursovaWork.Entity
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// Заповнює базу даних початковими даними.
+        /// </summary>
         public void FillDB()
         {
             DbInitializer.Initialize(this);

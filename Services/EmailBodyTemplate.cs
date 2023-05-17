@@ -1,7 +1,18 @@
 ﻿namespace KursovaWork.Services
 {
+    /// <summary>
+    /// Клас, який надає шаблон для створення HTML-тіла електронного листа.
+    /// </summary>
     public static class EmailBodyTemplate
     {
+        /// <summary>
+        /// Створює HTML-тіло електронного листа з використанням заданих даних.
+        /// </summary>
+        /// <param name="FirstName">Ім'я отримувача.</param>
+        /// <param name="LastName">Прізвище отримувача.</param>
+        /// <param name="verificationCode">Код підтвердження.</param>
+        /// <param name="purpose">Призначення підтвердження.</param>
+        /// <returns>HTML-тіло електронного листа.</returns>
         public static string bodyTemp(string FirstName, string LastName, int verificationCode, string purpose)
         {
             return $@"

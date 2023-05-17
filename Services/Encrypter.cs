@@ -1,13 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace KursovaWork.Services
 {
+    /// <summary>
+    /// Клас, який забезпечує функції шифрування та дешифрування даних.
+    /// </summary>
     public class Encrypter
     {
-        private static readonly byte[] Key = Encoding.UTF8.GetBytes("ojvafou1najfvsiu84IvnA42vhiOsv3M"); // Replace with your own encryption key
-        // Допоміжні методи для шифрування / дешифрування номера кредитної картки
+        /// <summary>
+        /// Ключ для шифрування та дешифрування року та місяця
+        /// </summary>
+        private static readonly byte[] Key = Encoding.UTF8.GetBytes("ojvafou1najfvsiu84IvnA42vhiOsv3M");
+
+        /// <summary>
+        /// Метод для шифрування номеру банківської карти.
+        /// </summary>
+        /// <param name="value">Номер банківської карти, який потрібно зашифрувати.</param>
+        /// <returns>Зашифрований номер банківської карти.</returns>
         public static string Encrypt(string value)
         {
             // Генеруємо випадковий ключ шифрування
@@ -55,6 +65,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для дешифрування номеру банківської карти.
+        /// </summary>
+        /// <param name="encryptedValue">Зашифрований номер банківської карти.</param>
+        /// <returns>Розшифрований номер банківської карти.</returns>
         public static string Decrypt(string encryptedValue)
         {
             // Розбиваємо отримане значення на ключ, вектор ініціалізації та зашифрований текст
@@ -83,6 +98,11 @@ namespace KursovaWork.Services
 
         }
 
+        /// <summary>
+        /// Метод для хешування пароля.
+        /// </summary>
+        /// <param name="password">Пароль, який потрібно захешувати.</param>
+        /// <returns>Хешоване значення пароля.</returns>
         public static string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -92,6 +112,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для шифрування місяця.
+        /// </summary>
+        /// <param name="month">Місяць, який потрібно зашифрувати.</param>
+        /// <returns>Зашифрований місяць.</returns>
         public static string EncryptMonth(string month)
         {
             using (var aes = Aes.Create())
@@ -120,6 +145,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для дешифрування місяця.
+        /// </summary>
+        /// <param name="encryptedMonth">Зашифрований місяць.</param>
+        /// <returns>Розшифрований місяць.</returns>
         public static string DecryptMonth(string encryptedMonth)
         {
             byte[] encrypted = Convert.FromBase64String(encryptedMonth);
@@ -145,6 +175,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для шифрування року.
+        /// </summary>
+        /// <param name="year">Рік, який потрібно зашифрувати.</param>
+        /// <returns>Зашифрований рік.</returns>
         public static string EncryptYear(string year)
         {
             using (var aes = Aes.Create())
@@ -173,6 +208,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для дешифрування року.
+        /// </summary>
+        /// <param name="encryptedYear">Зашифрований рік.</param>
+        /// <returns>Розшифрований рік.</returns>
         public static string DecryptYear(string encryptedYear)
         {
             byte[] encrypted = Convert.FromBase64String(encryptedYear);
@@ -198,6 +238,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для шифрування CVV.
+        /// </summary>
+        /// <param name="cvv">CVV, який потрібно зашифрувати.</param>
+        /// <returns>Зашифрований CVV.</returns>
         public static string EncryptCVV(string cvv)
         {
             using (var aes = Aes.Create())
@@ -225,6 +270,11 @@ namespace KursovaWork.Services
             }
         }
 
+        /// <summary>
+        /// Метод для дешифрування CVV.
+        /// </summary>
+        /// <param name="encryptedCVV">Зашифрований CVV.</param>
+        /// <returns>Розшифрований CVV.</returns>
         public static string DecryptCVV(string encryptedCVV)
         {
             byte[] encrypted = Convert.FromBase64String(encryptedCVV);
