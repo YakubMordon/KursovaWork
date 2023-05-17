@@ -1,4 +1,7 @@
-﻿@{
+﻿@using KursovaWork.Services;
+
+@{
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
     ViewBag.Title = "Оплата";
 }
 
