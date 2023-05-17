@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace KursovaWork.Models
+﻿namespace KursovaWork.Models
 {
     /// <summary>
     /// Клас для получення введеного верифікаційного коду

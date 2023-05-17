@@ -63,6 +63,11 @@ namespace KursovaWork.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if(value == null)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
             var year = Convert.ToInt32(value);
             var currentYear = DateTime.Now.Year % 2000;
 
@@ -82,9 +87,19 @@ namespace KursovaWork.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if(value == null)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
+
             var month = Convert.ToInt32(value);
             var yearProperty = validationContext.ObjectType.GetProperty("ExpirationYear");
             var yearValue = yearProperty.GetValue(validationContext.ObjectInstance);
+
+            if (yearValue == null)
+            {
+                return new ValidationResult(ErrorMessage);
+            }
 
             if (!int.TryParse(yearValue.ToString(),out var year))
             {
