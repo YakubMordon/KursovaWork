@@ -686,6 +686,11 @@ input:valid {
     }
 }
 
+.verification-digit{
+    width: 40px;
+    height: 60px;
+}
+
 @media (max-width: 576px) {
     .table {
         display: block;

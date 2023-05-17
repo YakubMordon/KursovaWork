@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Підтвердження реєстрації";
+}
+@model VerificationViewModel;
+
+<script>
+    var element = document.querySelector('.header');
+    element.remove();
+</script>
+<div class="splitted-page">
+    <div class="left-side">
+        <div class="input-group">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <h2 class="text-center mb-4">Підтвердження реєстрації</h2>
+                        <div class="customLogInHeader fs-5">
+                            <p>
+                                Введіть код, який вам надіслали на пошту 
+                            </p>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @using (Html.BeginForm("Submit", "SignUp", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                        {
+                            <div class="form-group">
+                                <p class="fs-6">Код підтвердження</p>
+                                <div class="verification-code-input d-flex justify-content-center gap-4">
+                                    @for (int i = 0; i < 4; i++)
+                                    {
+                                        <input type="text" class="verification-digit border-2 text-center" name="VerificationDigits[@i]" maxlength="1" required="required" />
+                                    }
+                                </div>
+                                @Html.ValidationMessageFor(m => m.VerificationDigits, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group login-button">
+                                <button type="submit" class="btn btn-primary btn-block">Ввійти</button>
+                            </div>
+
+                        }
+                        <div class="customLogInHeader fs-5">
+                            <p>
+                                Нажміть <a asp-action="SendVerificationCode" asp-controller="SignUp">тут</a>, якщо хочете повторно получити код на пошту
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-side"></div>
+    <div class="right-side-mobile"></div>
+</div>
+
+
+
+
+

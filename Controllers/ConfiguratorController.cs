@@ -16,7 +16,7 @@ namespace KursovaWork.Controllers
 
         private static string[] param = new string[3];
 
-        private static CarInfo curCar;
+        private static CarInfo? curCar;
 
         public ConfiguratorController(CarSaleContext context, ILogger<ConfiguratorController> logger)
         {

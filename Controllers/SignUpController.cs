@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KursovaWork.Models;
 using KursovaWork.Entity;
+using KursovaWork.Entity.Entities;
+using KursovaWork.Services;
+using System.Text;
 
 namespace KursovaWork.Controllers
 {
@@ -12,6 +15,10 @@ namespace KursovaWork.Controllers
         private readonly CarSaleContext _context;
 
         private readonly ILogger<SignUpController> _logger;
+
+        private static User? _curUser;
+
+        private static int _verificationCode;
 
         public SignUpController(CarSaleContext context, ILogger<SignUpController> logger)
         {
@@ -44,13 +51,59 @@ namespace KursovaWork.Controllers
                     ModelState.AddModelError("Email", "User with this email already exists.");
                     return View(user);
                 }
+                _curUser = user.ToUser();
 
-                _context.Add(user.ToUser());
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return SendVerificationCode();
+
             }
             return View(user);
         }
+        
 
+        [HttpPost]
+        public async Task<IActionResult> Submit(VerificationViewModel verification)
+        {
+            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+            if (ModelState.IsValid)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                foreach(var digit in verification.VerificationDigits)
+                {
+                    if (string.IsNullOrEmpty(digit))
+                    {
+                        ModelState.AddModelError("VerificationDigits", "Не введено всіх цифр");
+                        return View("~/Views/SignUp/Submit.cshtml", verification);
+                    }
+                    stringBuilder.Append(digit);
+                }
+
+                string temp = stringBuilder.ToString();
+
+                if(int.Parse(temp) != _verificationCode)
+                {
+                    ModelState.AddModelError("VerificationDigits", "Неправильний код підтвердження");
+                    return View("~/Views/SignUp/Submit.cshtml", verification);
+                }
+
+                _context.Add(_curUser);
+                await _context.SaveChangesAsync();
+                _curUser = null;
+                
+                return RedirectToAction("Index", "Home");
+            }
+            return View("~/Views/SignUp/Submit.cshtml", verification);
+        }
+
+        public IActionResult SendVerificationCode()
+        {
+            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+
+            _verificationCode = new Random().Next(1000, 9999);
+
+            EmailSender.SendEmail(_curUser.Email, "Код підтвердження", $"Ваш код підтвердження - {_verificationCode}");
+
+            return View("~/Views/SignUp/Submit.cshtml");
+        }
     }
 }
