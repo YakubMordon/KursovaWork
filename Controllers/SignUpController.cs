@@ -94,7 +94,11 @@ namespace KursovaWork.Controllers
 
             _verificationCode = new Random().Next(1000, 9999);
 
-            EmailSender.SendEmail(_curUser.Email, "Код підтвердження", $"Ваш код підтвердження - {_verificationCode}");
+            string subject = "Код підтвердження";
+
+            string body = EmailBodyTemplate.bodyTemp(_curUser.FirstName, _curUser.LastName, _verificationCode, "реєстрації");
+
+            EmailSender.SendEmail(_curUser.Email, subject, body);
 
             return View("~/Views/SignUp/Submit.cshtml");
         }

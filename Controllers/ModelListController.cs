@@ -36,66 +36,6 @@ namespace KursovaWork.Controllers
             return View(model);
         }
 
-        public IActionResult GasolineFilter()
-        {
-            var cars = _context.Cars
-            .Include(o => o.Detail)
-            .Include(o => o.Images)
-            .Where(o => o.Detail.FuelType == "Бензин")
-            .ToList();
-
-            if(_filter.Equals("Бензин"))
-            {
-                _filter = "";
-
-                cars = _context.Cars
-                .Include(o => o.Detail)
-                .Include(o => o.Images)
-                .ToList();
-
-            }
-            else
-            {
-                _filter = "Бензин";
-            }
-
-            _curList = cars;
-
-            var model = new FilterViewModel();
-            model.cars = _curList;
-
-            return View("~/Views/ModelList/ModelList.cshtml", model);
-        }
-
-        public IActionResult ElectricFilter()
-        {
-            var cars = _context.Cars
-            .Include(o => o.Detail)
-            .Include(o => o.Images)
-            .Where(o => o.Detail.FuelType == "Електричний")
-            .ToList();
-
-            if (_filter.Equals("Електричний"))
-            {
-                _filter = "";
-                cars = _context.Cars
-                .Include(o => o.Detail)
-                .Include(o => o.Images)
-                .ToList();
-            }
-            else
-            {
-                _filter = "Електричний";
-            }
-
-            _curList = cars;
-
-            var model = new FilterViewModel();
-            model.cars = _curList;
-
-            return View("~/Views/ModelList/ModelList.cshtml", model);
-        }
-
         public IActionResult SortByAlphabet()
         {
             _curList = _curList.OrderByDescending(o => (o.Make + o.Model)).ToList();
@@ -181,7 +121,6 @@ namespace KursovaWork.Controllers
 
             return View("~/Views/ModelList/ModelList.cshtml", filter);
         }
-
 
     }
 }
