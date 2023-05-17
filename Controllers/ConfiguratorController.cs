@@ -2,7 +2,6 @@
 using KursovaWork.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
 using KursovaWork.Entity.Entities;
 
 namespace KursovaWork.Controllers
@@ -25,9 +24,7 @@ namespace KursovaWork.Controllers
         }
 
         public IActionResult Configurator(string param1, string param2, string param3)
-        {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
+        { 
             List<CarInfo> cars = _context.Cars
                 .Include(o => o.Detail)
                 .Include(o => o.Images)
@@ -75,7 +72,6 @@ namespace KursovaWork.Controllers
 
             if(string.IsNullOrEmpty(color) || string.IsNullOrEmpty(transmission) || string.IsNullOrEmpty(fuelType))
             {
-                ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
                 return View("~/Views/Configurator/Configurator.cshtml",curCar);
             }
 

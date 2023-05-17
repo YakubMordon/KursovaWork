@@ -1,5 +1,8 @@
-﻿@{
-    ViewBag.Title = "Method of payment";
+﻿@using KursovaWork.Services;
+
+@{
+    ViewBag.Title = "Метод оплати";
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
 }
 @model CreditCardViewModel
 

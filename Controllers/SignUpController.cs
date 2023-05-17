@@ -1,6 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KursovaWork.Models;
 using KursovaWork.Entity;
@@ -28,20 +26,17 @@ namespace KursovaWork.Controllers
 
         public IActionResult SignUp()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             return View();
         }
 
         public IActionResult LogIn()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             return View("~/Views/LogIn/LogIn.cshtml");
         }
 
         [HttpPost]
         public async Task<IActionResult> SignUp(SignUpViewModel user)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             if (ModelState.IsValid)
             {
                 bool userExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
@@ -63,7 +58,6 @@ namespace KursovaWork.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit(VerificationViewModel verification)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             if (ModelState.IsValid)
             {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -97,7 +91,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult SendVerificationCode()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
 
             _verificationCode = new Random().Next(1000, 9999);
 

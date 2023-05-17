@@ -1,7 +1,10 @@
 ﻿@using KursovaWork.Entity.Entities.Car;
+@using KursovaWork.Services;
+
 @model CarInfo;
 @{
     ViewBag.Title = Model.Make + " " + Model.Model;
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
 }
 
 <h2 class="mb-2">@Model.Make @Model.Model</h2>

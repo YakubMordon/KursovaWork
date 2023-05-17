@@ -17,7 +17,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IDRetriever>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-
 .AddCookie(options =>
 {
     options.LoginPath = "/Home/Index";

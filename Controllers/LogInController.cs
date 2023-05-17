@@ -1,10 +1,8 @@
 ﻿using KursovaWork.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
 using KursovaWork.Entity;
 
 namespace KursovaWork.Controllers
@@ -22,13 +20,11 @@ namespace KursovaWork.Controllers
         }
         public IActionResult LogIn()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             return View();
         }
 
         public IActionResult SignUp()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             return View("~/Views/SignUp/SignUp.cshtml");
         }
 
@@ -36,7 +32,6 @@ namespace KursovaWork.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult LogIn(LogInViewModel model)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             if (ModelState.IsValid)
             {
                 var user = model.ValidateUser(_context);

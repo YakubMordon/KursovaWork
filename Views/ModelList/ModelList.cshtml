@@ -1,6 +1,9 @@
 ﻿@using KursovaWork.Entity.Entities.Car;
+@using KursovaWork.Services;
+
 @{
-    ViewBag.Title = "Models";
+    ViewBag.Title = "Моделі";
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
 }
 
 @model FilterViewModel

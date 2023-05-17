@@ -26,38 +26,38 @@ namespace KursovaWork.Controllers
         }
 
         public IActionResult Index()
-        {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-            
+        { 
             return View();
         }
 
 
         public IActionResult LogIn()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-            
             return View("~/Views/LogIn/LogIn.cshtml");
         }
 
         public IActionResult OrderList()
         {
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
+
             var orders = _context.Orders
                 .Include(o => o.Car)
                     .ThenInclude(c => c.Detail) 
                 .Include(o => o.ConfiguratorOptions)
                 .Where(o => o.UserId == loggedInUserId)
                 .ToList();
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+
             return View("~/Views/OrderList/OrderList.cshtml",orders);
         }
 
         public async Task<IActionResult> CreditCard()
         {
             ViewBag.Input = false;
+
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
+
             bool cardExists = await _context.Cards.AnyAsync(u => u.UserId == loggedInUserId);
+
             if (cardExists)
             {
                 Card user = _context.Cards.FirstOrDefault(u => u.UserId == loggedInUserId);
@@ -68,13 +68,14 @@ namespace KursovaWork.Controllers
                 ViewBag.Year = user.ExpirationYear;
                 ViewBag.Card = true;
             }
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+
             return View("~/Views/CreditCard/CreditCard.cshtml");
         }
 
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+
             return RedirectToAction("Index", "Home");
         }
 

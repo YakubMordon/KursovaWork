@@ -1,8 +1,11 @@
 ﻿@using KursovaWork.Entity.Entities.Car;
-@model CarInfo;
+@using KursovaWork.Services;
+
 @{
-    ViewBag.Title = "Payment";
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
+    ViewBag.Title = "Оплата";
 }
+@model CarInfo;
 
 <div class="d-flex flex-column justify-content-center text-center">
     <h1>Чи ви точно хочете купити @Model.Make @Model.Model @Model.Year року ціною в @Model.Price грн.?</h1>

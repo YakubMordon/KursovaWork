@@ -1,5 +1,7 @@
-﻿@{
+﻿@using KursovaWork.Services;
+@{
     ViewBag.Title = "LogIn";
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
 }
 @model LogInViewModel
 

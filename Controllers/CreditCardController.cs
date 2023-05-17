@@ -2,10 +2,8 @@
 using KursovaWork.Entity.Entities;
 using KursovaWork.Models;
 using KursovaWork.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace KursovaWork.Controllers
 {
@@ -47,7 +45,6 @@ namespace KursovaWork.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CreditCard(CreditCardViewModel model)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
 
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
 
@@ -89,8 +86,7 @@ namespace KursovaWork.Controllers
                 _context.Cards.Remove(creditCard);
                 _context.SaveChanges();
             }
-
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
+  
             ViewBag.Input = false;
 
             return View("~/Views/CreditCard/CreditCard.cshtml");

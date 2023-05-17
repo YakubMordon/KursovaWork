@@ -24,8 +24,6 @@ namespace KursovaWork.Controllers
         }
         public IActionResult ModelList()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
             _curList = _context.Cars
             .Include(o => o.Detail)
             .Include(o => o.Images)
@@ -40,7 +38,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult GasolineFilter()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             var cars = _context.Cars
             .Include(o => o.Detail)
             .Include(o => o.Images)
@@ -72,7 +69,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult ElectricFilter()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             var cars = _context.Cars
             .Include(o => o.Detail)
             .Include(o => o.Images)
@@ -102,7 +98,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult SortByAlphabet()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             _curList = _curList.OrderByDescending(o => (o.Make + o.Model)).ToList();
 
             var model = new FilterViewModel();
@@ -113,7 +108,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult SortByPrice(string param1)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             if (param1.Equals("cheap"))
             {
                 _curList = _curList.OrderBy(o => o.Price).ToList();
@@ -131,7 +125,6 @@ namespace KursovaWork.Controllers
 
         public IActionResult SortByNovelty()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
             _curList = _curList.OrderByDescending(o => o.Year).ToList();
 
             var model = new FilterViewModel();
@@ -141,15 +134,11 @@ namespace KursovaWork.Controllers
 
         public IActionResult ApplyFilters(FilterViewModel filter)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
-            // Apply the filtering logic based on the filter parameters
             var filteredCars = _context.Cars
                 .Include(o => o.Detail)
                 .Include(o => o.Images)
                 .ToList();
 
-            // Filter by price range
             if (filter.PriceFrom.HasValue)
             {
                 filteredCars = filteredCars.Where(c => c.Price >= filter.PriceFrom.Value).ToList();

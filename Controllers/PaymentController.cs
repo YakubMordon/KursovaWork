@@ -3,7 +3,6 @@ using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
 using KursovaWork.Services;
 using Microsoft.AspNetCore.Mvc;
-using KursovaWork.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace KursovaWork.Controllers
@@ -26,8 +25,6 @@ namespace KursovaWork.Controllers
         }
         public IActionResult Payment(string param1, string param2, string param3)
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
 
             if (loggedInUserId == 0)
@@ -63,8 +60,6 @@ namespace KursovaWork.Controllers
         }
         public IActionResult Success()
         {
-            ViewBag.IsLoggedIn = HttpContext.User.Identity.IsAuthenticated ? true : false;
-
             int loggedInUserId = _IDRetriever.GetLoggedInUserId();
 
             if (loggedInUserId == 0)
