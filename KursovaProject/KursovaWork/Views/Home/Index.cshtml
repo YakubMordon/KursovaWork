@@ -1,0 +1,358 @@
+﻿@using KursovaWorkBLL.Services.AdditionalServices;
+@{
+    ViewBag.Title = "VAG Dealer";
+    ViewBagHelper.SetIsLoggedInInViewBag(ViewContext);
+}
+
+<div class="homepage-mainsection">
+    <div class="main-carousel autoplay">
+        <div class="carousel-cell">
+            <div class="post">
+                <div class="homepage-Image">
+                    <img src="~/Content/Images/Q8 E-tron.jpg">
+                </div>
+                <div class="innerStageBox">
+                    <div class="headline">
+                        <div class="audi-themeStageBoxHeadlineH1">
+                            <span class="foreground">Новий Audi Q8 e-tron</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="audi-themeStageBoxLinks">
+                        <div class="stageBoxListItem">
+                            <div class="audi-themeStageBoxLinksLink">
+                                <span class="audi-themeStageBoxLinksLinkLinkIcon">
+                                    <a class="audi-kwcBasicLinkTagIntern  text-decoration-none" asp-action="Car" asp-controller="Car" asp-route-param1="Audi" asp-route-param2="Q8" asp-route-param3="2021">
+                                        <span class="btn btn-color ">Детальніше</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-cell">
+            <div class="post">
+                <div class="homepage-Image">
+                    <img src="~/Content/Images/taycan.jpg">
+                </div>
+                <div class="innerStageBox">
+                    <div class="headline">
+                        <div class="porsche-themeStageBoxHeadlineH1">
+                            <span class="foreground">Новий Porsche Taycan</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="porsche-themeStageBoxLinks">
+                        <div class="stageBoxListItem">
+                            <div class="porsche-themeStageBoxLinksLink">
+                                <span class="porsche-themeStageBoxLinksLinkLinkIcon">
+                                    <a class="porsche-kwcBasicLinkTagIntern  text-decoration-none" asp-action="Car" asp-controller="Car" asp-route-param1="Porsche" asp-route-param2="Taycan" asp-route-param3="2023">
+                                        <span class="btn btn-color ">Детальніше</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-cell">
+            <div class="post">
+                <div class="homepage-Image">
+                    <img src="~/Content/Images/arteon.jpg">
+                </div>
+                <div class="innerStageBox">
+                    <div class="headline">
+                        <div class="vw-themeStageBoxHeadlineH1">
+                            <span class="foreground">Новий Arteon Shooting Brake</span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="vw-themeStageBoxLinks">
+                        <div class="stageBoxListItem">
+                            <div class="vw-themeStageBoxLinksLink">
+                                <span class="vw-themeStageBoxLinksLinkLinkIcon">
+                                    <a class="vw-kwcBasicLinkTagIntern  text-decoration-none" asp-action="Car" asp-controller="Car" asp-route-param1="Volkswagen" asp-route-param2="Arteon" asp-route-param3="2022">
+                                        <span class="btn btn-color ">Детальніше</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dealer-section">
+    <div class="paragraphs__kwcParagraphItem" data-width="100%">
+        <div class="contentTeaserTextContent text-white">
+            <div class="webCustom contentTeaserTextContentHeadline">
+                <h4 class="headline">
+                    <span class="contentTeaserTextContentHeadline">Шановні Клієнти та Партнери,</span>
+                </h4>
+            </div>
+            <div class="webCustom contentTeaserText">
+
+                <p class="TeaserText__headline">
+                    <span class="TeaserText">
+                        У зв’язку з введенням воєнного стану на території України повідомляємо, що Дилерські Підприємства та Сервісні Партнери Volkswagen наразі працюють в обмеженому режимі.<br>
+                        <br>
+                        Будь ласка, дізнайтеся про режим роботи конкретного підприємства-партнера на його сайті або зателефонувавши безпосередньо до даного підприємства.<br>
+                        <br>
+                        Дякуємо за Ваш вибір та розуміння, і ми сподіваємося, що незабаром зможемо повністю відновити роботу нашої збутової та сервісної мережі.<br>
+                        <br>
+                        З вірою в Україну,<br>
+                        Ваша команда Volkswagen
+                    </span>
+                </p>
+            </div>
+            <div class="webStandard contentTeaserTextContentButton">
+                <a class="btn btn-color" href="https://www.google.com/maps/search/Volkswagen+w+pobliżu+Ukraine/@@48.1555272,31.1741217,6z/data=!3m1!4b1">Пошук дилера</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="parallax">
+    <div class="parallax-background"></div>
+    <div class="parallax-content">
+        <h2>Відкрийте для себе Volkswagen Golf</h2>
+        <p>Відчуйте захоплюючу їзду на повністю електричному Volkswagen Golf. Відкрийте для себе його аеродинамічний дизайн, передові технології та вражаючі характеристики.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="LinksContainer">
+        <div class="d-xxl-flex flex-row justify-content-between gap-3">
+            <div class="boxFooter__column boxFooter__column1">
+                <div class="boxFooterColumn">
+                    <div class="boxFooterColumn__headline">
+                        <div class="webCustom boxFooterColumnHeadline">
+                            <h5 class="boxFooterColumnHeadline__headline boxFooterColumnHeadline__d200">
+                                <span class="boxFooterColumnHeadline__main">Volkswagen</span>
+                            </h5>
+                        </div>
+
+                    </div>
+                    <div class="boxFooterColumn__linkList">
+                        <div class="boxFooterColumnLinkList d-xxl-flex flex-column justify-content-lg-between gap-2" data-width="100%">
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/brand-and-news/news" title="Актуальні новини світу Volkswagen">
+                                        <span>Новини</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="poiToolsKwcLinkTagExtern Disclaimer-text text-decoration-none" href="https://www.vw-commercial.com.ua" title="Комерційні автомобілі Volkswagen">
+                                        <span>Volkswagen комерційні автомобілі</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="poiToolsKwcLinkTagSvn Disclaimer-text text-decoration-none" href="https://stockcars.porscheinformatik.com/mainframe/api/redirect/result-list?country=UA&amp;brand=VW&amp;stockCar=true" data-poi-type="svn" data-poi-model="" data-kwc-popup="blank">
+                                        <span>Склад авто в Україні</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="boxFooter__column boxFooter__column2">
+                <div class="boxFooterColumn">
+                    <div class="boxFooterColumn__headline">
+                        <div class="webCustom boxFooterColumnHeadline">
+                            <h5 class="boxFooterColumnHeadline__headline boxFooterColumnHeadline__d200">
+                                <span class="boxFooterColumnHeadline__main">Сервіс</span>
+                            </h5>
+                        </div>
+
+                    </div>
+                    <div class="boxFooterColumn__linkList">
+                        <div class="boxFooterColumnLinkList d-xxl-flex flex-column justify-content-lg-between gap-2" data-width="100%">
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/dealer-search" title="Пошук дилера Volkswagen">
+                                        <span>Пошук дилера</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/contacts-dealer-only/vehichle-inquiry">
+                                        <span>Відгуки та пропозиції</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="list-item" style="">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/brand-and-news/news/newsletter" title="Підписка на новини Volkswagen ">
+                                        <span>Підписка на новини</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="support d-xl-flex flex-column">
+                <div class="boxFooterColumn">
+                    <div class="boxFooterColumn__headline">
+                        <div class="webCustom boxFooterColumnHeadline">
+                            <h5 class="boxFooterColumnHeadline__headline boxFooterColumnHeadline__d200">
+                                <span class="boxFooterColumnHeadline__main">Підтримка</span>
+                            </h5>
+                        </div>
+
+                    </div>
+                    <div class="boxFooterColumn__linkList">
+                        <div class="boxFooterColumnLinkList list-unstyled d-xxl-flex flex-column justify-content-lg-between gap-2" data-width="100%">
+                            <div class="list-item">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/impressum-1/tov-porsche-ukraine" title="Volkswagen в Україні">
+                                        <span>Volkswagen в Україні</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="list-item">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="kwcBasicLinkTagIntern Disclaimer-text text-decoration-none" href="/impressum-1/tov-porsche-ukraine" title="Конфіденційність персональних даних">
+                                        <span>Конфіденційність персональних даних</span>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="listItem">
+                                <span class="boxFooterColumnLinkListLink">
+                                    <a class="poiToolsKwcLinkTagExtern Disclaimer-text text-decoration-none" href="https://www.porscheukraine.com.ua/uk/company/comliance/sistema-whistle-blower" data-kwc-popup="blank">
+                                        <span>Система повідомлення про порушення (Whistleblower System)</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="socialLinks d-xl-flex flex-column">
+                <div class="boxFooterColumn__headline">
+                    <div class="webCustom boxFooterColumnHeadline">
+                        <h5 class="boxFooterColumnHeadline__headline boxFooterColumnHeadline__d200">
+                            <span class="boxFooterColumnHeadline__main">Соціальні мережі</span>
+                        </h5>
+                    </div>
+
+                </div>
+                <div class="boxFooterSocialLinks list-unstyled d-xxl-flex flex-column justify-content-lg-between gap-2">
+                    <div class="list-item" style="">
+                        <div class="d-xl-flex flex-xxl-row">
+                            <div class="boxFooterSocialLinksChildImage">
+                                <img src="//cf-cdn-v6.volkswagen.at/media/Box_Footer_SocialLinks_Child_Image_Component/root-uapkw-footer-socialLinks-65057-image/default/c4983ad5/1674458852/social-facebook.svg" alt="">
+                            </div>
+                            <span class="boxFooterSocialLinksChildLink">
+                                <a class="LinkTagExtern text-decoration-none Disclaimer-text" href="https://www.facebook.com/VolkswagenUA/">
+                                    <span>Facebook</span>
+                                </a>
+                            </span>
+                            <div class="boxFooterSocialLinksChildAltText">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item" style="">
+                        <div class="d-xl-flex flex-xxl-row">
+                            <div class="boxFooterSocialLinksChildImage">
+                                <img src="//cf-cdn-v6.volkswagen.at/media/Box_Footer_SocialLinks_Child_Image_Component/root-uapkw-footer-socialLinks-65058-image/default/f354ecf8/1674458852/social-youtube.svg" alt="">
+                            </div>
+                            <span class="boxFooterSocialLinksChildLink">
+                                <a class="LinkTagExtern text-decoration-none Disclaimer-text" href="https://www.youtube.com/user/VolkswagenUA">
+                                    <span>YouTube</span>
+                                </a>
+                            </span>
+                            <div class="boxFooterSocialLinksChildAltText">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item" style="">
+                        <div class="d-xl-flex flex-xxl-row">
+                            <div class="boxFooterSocialLinksChildImage">
+                                <img src="//cf-cdn-v6.volkswagen.at/media/Box_Footer_SocialLinks_Child_Image_Component/root-uapkw-footer-socialLinks-65059-image/default/916dc838/1677140935/social-instagram.svg" alt="">
+                            </div>
+                            <span class="boxFooterSocialLinksChildLink" role="button">
+                                <a class="LinkTagExtern text-decoration-none Disclaimer-text" href="https://www.instagram.com/volkswagen_ua/">
+                                    <span>Instagram</span>
+                                </a>
+                            </span>
+                            <div class="boxFooterSocialLinksChildAltText">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <nav class="themeMenuBottom mt-2">
+        <ul class="themeMenuBottom-menu Disclaimer-text">
+
+            <li class="themeMenuBottom__item themeMenuBottom__item--first" role="button">
+                <a class="themeMenuBottom__link ">Про компанію</a>
+            </li>
+
+
+            <li class="themeMenuBottom__item" role="button">
+                <a class="themeMenuBottom__link">Cookie Settings</a>
+            </li>
+
+
+            <li class="themeMenuBottom__item" role="button">
+                <a class="themeMenuBottom__link">Конфіденційність персональних даних</a>
+            </li>
+
+
+            <li class="themeMenuBottom__item" role="button">
+                <a class="themeMenuBottom__link">Умови користування</a>
+            </li>
+
+
+            <li class="themeMenuBottom__item" role="button">
+                <a class="themeMenuBottom__link">Зворотний зв'язок</a>
+            </li>
+
+
+            <li class="themeMenuBottom__item themeMenuBottom__item--last" role="button">
+                <a class="themeMenuBottom__link">Споживання пального</a>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div class="Disclaimer">
+        <h2>Дисклеймер від Volkswagen</h2>
+        <div>
+            <p>Наведені цифри були визначені у відповідності до методики вимірювання EG 715/2007 або EWG 80/1268. Ці цифри не стосуються певної конкретної моделі автомобіля і не становлять частину пропозиції, а наведені лише для порівняння різних типів автомобілів. На додаток до паливної економічності двигуна при визначенні витрат пального та викидів CO2 також мають значення манера керування, а також інші нетехнічні фактори, як, наприклад, умови навколишнього середовища. Окрім впливу погодних та автодорожніх умов додаткове обладнання та пристрої, розширений набір опцій, шини та інше можуть змінити важливі параметри автомобіля, такі як вага, опір руху та аеродинаміка, відповідно впливаючи на коефіцієнти витрати пального та характеристики управління. </p>
+        </div>
+    </div>
+
+    <div class="Copyright">
+        <p class="boxCopyright">
+            <span>© ТОВ "VAG Dealer" 2023</span>
+        </p>
+    </div>
+
+</footer>
+
+
+
+
