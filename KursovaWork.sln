@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KursovaWorkDAL", "..\Kursov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KursovaWorkBLL", "..\KursovaWorkBLL\KursovaWorkBLL.csproj", "{B931093C-3CA5-4BE2-9897-C35AAB04CD82}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KursovaPackage", "KursovaPackage", "{7C36D9EF-3E87-42B0-9913-986F8F567064}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B902315-2C7B-4C9C-9CA0-11C33BAB33F2} = {7C36D9EF-3E87-42B0-9913-986F8F567064}
+		{BEF4EB0A-2C84-4508-AAFC-0CE93B3CB201} = {7C36D9EF-3E87-42B0-9913-986F8F567064}
+		{B931093C-3CA5-4BE2-9897-C35AAB04CD82} = {7C36D9EF-3E87-42B0-9913-986F8F567064}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A34FE5F2-A62D-4367-BAE3-6A4EC1F4E4F6}
