@@ -1,0 +1,14 @@
+D:\Backup\source\repos\KursovaWorkDAL\bin\Debug\net7.0\KursovaWorkDAL.deps.json
+D:\Backup\source\repos\KursovaWorkDAL\bin\Debug\net7.0\KursovaWorkDAL.runtimeconfig.json
+D:\Backup\source\repos\KursovaWorkDAL\bin\Debug\net7.0\KursovaWorkDAL.dll
+D:\Backup\source\repos\KursovaWorkDAL\bin\Debug\net7.0\KursovaWorkDAL.pdb
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.csproj.AssemblyReference.cache
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.AssemblyInfoInputs.cache
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.AssemblyInfo.cs
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.csproj.CoreCompileInputs.cache
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.dll
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\refint\KursovaWorkDAL.dll
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.pdb
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\KursovaWorkDAL.genruntimeconfig.cache
+D:\Backup\source\repos\KursovaWorkDAL\obj\Debug\net7.0\ref\KursovaWorkDAL.dll
