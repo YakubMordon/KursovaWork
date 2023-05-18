@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using KursovaWork.Entity;
-using KursovaWork.Entity.Entities.Car;
-using KursovaWork.Services;
+using KursovaWork.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -15,9 +14,9 @@ namespace KursovaWork.Controllers
     public class LogInController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з користувачами
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly IUserService _userService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
@@ -27,11 +26,11 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="LogInController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="userService">Сервіс для роботи з користувачами.</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        public LogInController(CarSaleContext context, ILogger<LogInController> logger)
+        public LogInController(IUserService userService, ILogger<LogInController> logger)
         {
-            _context = context;
+            _userService = userService;
             _logger = logger;
         }
 
@@ -67,7 +66,7 @@ namespace KursovaWork.Controllers
             _logger.LogInformation("Вхід у метод перевірки даних входу");
             if (ModelState.IsValid)
             {
-                var user = model.ValidateUser(_context);
+                var user = _userService.ValidateUser(model);
 
                 if (user != null)
                 {

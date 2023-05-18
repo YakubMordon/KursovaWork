@@ -1,8 +1,8 @@
 ﻿using KursovaWork.Entity;
 using KursovaWork.Entity.Entities;
-using KursovaWork.Entity.Entities.Car;
 using KursovaWork.Models;
-using KursovaWork.Services;
+using KursovaWork.Services.AdditionalServices;
+using KursovaWork.Services.MainServices.UserService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -14,9 +14,9 @@ namespace KursovaWork.Controllers
     public class ChangePasswordController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з користувачем
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly IUserService _userService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
@@ -36,11 +36,11 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="ChangePasswordController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="userService">Сервіс для роботи з користувачем.</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        public ChangePasswordController(CarSaleContext context, ILogger<ChangePasswordController> logger)
+        public ChangePasswordController(IUserService userService, ILogger<ChangePasswordController> logger)
         {
-            _context = context;
+            _userService = userService;
             _logger = logger;
         }
 
@@ -64,7 +64,7 @@ namespace KursovaWork.Controllers
             _logger.LogInformation("Вхід у метод верифікації електронної пошти");
             if(ModelState.IsValid)
             {
-                _curUser = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+                _curUser = _userService.GetUserByEmail(model.Email);    
                 if (_curUser != null)
                 {
                     _logger.LogInformation("Пошту знайдено");
@@ -132,12 +132,8 @@ namespace KursovaWork.Controllers
             if (ModelState.IsValid)
             {
                 _logger.LogInformation("Дані пройшли валідацію");
-                var user = _context.Users.FirstOrDefault(u => u.Email == _curUser.Email);
 
-                user.Password = model.Password;
-                user.ConfirmPassword = model.ConfirmPassword;
-
-                _context.SaveChanges();
+                _userService.UpdatePasswordOfUser(model, _curUser);
 
                 _logger.LogInformation("Успішно змінено пароль, переходимо на головну сторінку");
 
@@ -162,7 +158,7 @@ namespace KursovaWork.Controllers
 
             string subject = "Код підтвердження";
 
-            string body = EmailBodyTemplate.bodyTemp(_curUser.FirstName, _curUser.LastName, _verificationCode, "зміни паролю");
+            string body = EmailBodyTemplate.BodyTemp(_curUser.FirstName, _curUser.LastName, _verificationCode, "зміни паролю");
 
             _logger.LogInformation("Надсилаємо повідомлення на електронну пошту користувача та переходимо на сторінку з введенням коду");
 

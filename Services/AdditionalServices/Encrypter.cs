@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace KursovaWork.Services
+namespace KursovaWork.Services.AdditionalServices
 {
     /// <summary>
     /// Клас, який забезпечує функції шифрування та дешифрування даних.

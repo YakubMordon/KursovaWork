@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace KursovaWork.Services
+namespace KursovaWork.Services.AdditionalServices
 {
     /// <summary>
     /// Клас-допоміжник для роботи з ViewBag.

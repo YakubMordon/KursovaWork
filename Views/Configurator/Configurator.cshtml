@@ -1,5 +1,5 @@
 ﻿@using KursovaWork.Entity.Entities.Car;
-@using KursovaWork.Services;
+@using KursovaWork.Services.AdditionalServices;
 
 @model CarInfo;
 @{
@@ -26,27 +26,27 @@
         <div class="form-group">
             <h4>Колір</h4>
             <div class="radio-buttons flex-row justify-content-between">
-                <label>
+                <label class="cursor">
                     <input type="radio" name="color" value="Червоний">
                     <span class="radio-button bg-red"></span>
                     Червоний
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="color" value="Синій">
                     <span class="radio-button bg-blue"></span>
                     Синій
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="color" value="Чорний">
                     <span class="radio-button bg-black"></span>
                     Чорний
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="color" value="Білий">
                     <span class="radio-button bg-light"></span>
                     Білий
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="color" value="Сріблястий">
                     <span class="radio-button bg-silver"></span>
                     Сріблястий
@@ -61,17 +61,17 @@
         <div class="form-group">
             <h4>Тип коробки передач</h4>
             <div class="radio-buttons">
-                <label>
+                <label class="cursor">
                     <input type="radio" name="transmission" value="Механічна">
                     <span class="radio-button"></span>
                     Механічна
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="transmission" value="Автоматична">
                     <span class="radio-button"></span>
                     Автоматична
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="transmission" value="Роботична">
                     <span class="radio-button"></span>
                     Роботична
@@ -86,12 +86,12 @@
         <div class="form-group">
             <h4>Тип палива</h4>
             <div class="radio-buttons">
-                <label>
+                <label class="cursor">
                     <input type="radio" name="fuelType" value="Бензин">
                     <span class="radio-button"></span>
                     Бензин
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="fuelType" value="Дизель">
                     <span class="radio-button"></span>
                     Дизель
@@ -101,7 +101,7 @@
                     <span class="radio-button"></span>
                     Електричний
                 </label>
-                <label>
+                <label class="cursor">
                     <input type="radio" name="fuelType" value="Гибрид">
                     <span class="radio-button"></span>
                     Гибрид

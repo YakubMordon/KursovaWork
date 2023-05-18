@@ -2,7 +2,7 @@
 using MailKit.Security;
 using MimeKit;
 
-namespace KursovaWork.Services
+namespace KursovaWork.Services.AdditionalServices
 {
     /// <summary>
     /// Клас для відправки електронних листів.

@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using KursovaWork.Services;
+using KursovaWork.Services.AdditionalServices;
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
-using KursovaWork.Entity.Entities.Car;
+using KursovaWork.Services.MainServices.OrderService;
 
 namespace KursovaWork.Controllers
 {
@@ -17,9 +16,9 @@ namespace KursovaWork.Controllers
     public class HomeController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з замовленнями
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly IOrderService _orderService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
@@ -27,21 +26,14 @@ namespace KursovaWork.Controllers
         private readonly ILogger<HomeController> _logger;
 
         /// <summary>
-        /// Об'єкт класу IDRetriever для получення ідентифікатора користувача
-        /// </summary>
-        private readonly IDRetriever _IDRetriever;
-
-        /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="HomeController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="orderService">Сервіс для роботи з замовленнями.</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        /// <param name="idRetriever">Сервіс для отримання ідентифікатора користувача.</param>
-        public HomeController(CarSaleContext context, ILogger<HomeController> logger, IDRetriever idRetriever)
+        public HomeController(IOrderService orderService, ILogger<HomeController> logger)
         {
-            _context = context;
+            _orderService = orderService;
             _logger = logger;
-            _IDRetriever = idRetriever;
         }
 
         /// <summary>
@@ -95,16 +87,7 @@ namespace KursovaWork.Controllers
         {
             _logger.LogInformation("Вхід у метод переходу на сторінку списку замовлень");
 
-            _logger.LogInformation("Заполучення Ідентифікатора користувача");
-            int loggedInUserId = _IDRetriever.GetLoggedInUserId();
-
-            _logger.LogInformation("Заполучення всіх можливих замовлень, які закріплені за користувачем");
-            var orders = _context.Orders
-                .Include(o => o.Car)
-                    .ThenInclude(c => c.Detail) 
-                .Include(o => o.ConfiguratorOptions)
-                .Where(o => o.UserId == loggedInUserId)
-                .ToList();
+            var orders = _orderService.FindAllLoggedIn().ToList();
 
             _logger.LogInformation("Перехід на сторінку списку замовлень");
 

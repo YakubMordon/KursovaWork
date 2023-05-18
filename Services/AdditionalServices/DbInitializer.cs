@@ -1,7 +1,7 @@
 ﻿using KursovaWork.Entity;
 using KursovaWork.Entity.Entities.Car;
 
-namespace KursovaWork.Services
+namespace KursovaWork.Services.AdditionalServices
 {
     /// <summary>
     /// Клас для ініціалізації бази даних автомобільного продажу.

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using KursovaWork.Entity.Entities;
 
 namespace KursovaWork.Models
 {
@@ -54,6 +55,22 @@ namespace KursovaWork.Models
         [Required(ErrorMessage = "Поле CVV є обов'язковим")]
         [StringLength(3, MinimumLength = 3, ErrorMessage = "Довжина CVV повинна бути мінімум 3")]
         public string CVV { get; set; }
+
+        /// <summary>
+        /// Метод перетворення об'єкту класу CreditCardViewModel у об'єкт класу Card
+        /// </summary>
+        /// <returns>Перетворений об'єкт класу Card</returns>
+        public Card ToCard()
+        {
+            return new Card
+            {
+                CardNumber = CardNumber,
+                CardHolderName = CardHolderName,
+                ExpirationMonth = ExpirationMonth,
+                ExpirationYear = ExpirationYear,
+                CVV = CVV
+            };
+        }
     }
 
     /// <summary>
@@ -61,6 +78,12 @@ namespace KursovaWork.Models
     /// </summary>
     public class FutureYearAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// Метод перевірки чи є рік у майбутньому або теперешньому
+        /// </summary>
+        /// <param name="value">Параметр, який перевіряється на валідність</param>
+        /// <param name="validationContext">Описує контекст у якому валідація виконується</param>
+        /// <returns>Успіх або провал валідації</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if(value == null)
@@ -85,6 +108,12 @@ namespace KursovaWork.Models
     /// </summary>
     public class FutureMonthAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// Метод перевірки чи є дата у майбутньому або теперешньому
+        /// </summary>
+        /// <param name="value">Параметр, який перевіряється на валідність</param>
+        /// <param name="validationContext">Описує контекст у якому валідація виконується</param>
+        /// <returns>Успіх або провал валідації</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if(value == null)

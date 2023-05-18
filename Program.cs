@@ -1,7 +1,15 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Services;
+using KursovaWork.Services.AdditionalServices;
+using KursovaWork.Services.MainServices.CardService;
+using KursovaWork.Services.MainServices.CarService;
+using KursovaWork.Services.MainServices.OrderService;
+using KursovaWork.Services.MainServices.UserService;
 using KursovaWork.Entity;
+using KursovaWork.Repositories.UserRepository;
+using KursovaWork.Repositories.CarRepository;
+using KursovaWork.Repositories.CardRepository;
+using KursovaWork.Repositories.OrderRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +22,18 @@ builder.Services.AddDbContext<CarSaleContext>(options =>
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IDRetriever>();
+
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<ICarRepository,CarRepository>();
+builder.Services.AddScoped<ICardRepository,CardRepository>();
+builder.Services.AddScoped<IOrderRepository,OrderRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<ICardService,CardService>();
+builder.Services.AddScoped<IOrderService,OrderService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>

@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using KursovaWork.Models;
 using KursovaWork.Entity;
 using KursovaWork.Entity.Entities;
-using KursovaWork.Services;
+using KursovaWork.Services.AdditionalServices;
 using System.Text;
+using KursovaWork.Services.MainServices.CarService;
+using KursovaWork.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -14,14 +16,13 @@ namespace KursovaWork.Controllers
     public class SignUpController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з користувачем
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly IUserService _userService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
         /// </summary>
-
         private readonly ILogger<SignUpController> _logger;
 
         /// <summary>
@@ -37,11 +38,11 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="SignUpController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="userService">Сервіс для роботи з користувачем</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        public SignUpController(CarSaleContext context, ILogger<SignUpController> logger)
+        public SignUpController(IUserService userService, ILogger<SignUpController> logger)
         {
-            _context = context;
+            _userService = userService;
             _logger = logger;
         }
 
@@ -68,29 +69,29 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Обробляє введені користувачем дані реєстрації.
         /// </summary>
-        /// <param name="user">Модель, що містить введені користувачем дані реєстрації.</param>
+        /// <param name="model">Модель, що містить введені користувачем дані реєстрації.</param>
         /// <returns>Сторінка введення верифікаційного коду або сторінка реєстрації з повідомленням про помилку.</returns>
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUpViewModel user)
+        public IActionResult SignUp(SignUpViewModel model)
         {
             _logger.LogInformation("Вхід у метод верифікації даних реєстрації");
             if (ModelState.IsValid)
             {
-                bool userExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
+                User user = _userService.GetUserByEmail(model.Email);
 
-                if (userExists)
+                if (user != null)
                 {
                     ModelState.AddModelError("Email", "User with this email already exists.");
                     _logger.LogInformation("Користувач з такою ж елекронною поштою існує");
                     return View(user);
                 }
-                _curUser = user.ToUser();
+                _curUser = model.ToUser();
                 _logger.LogInformation("Успішно перевірено чи є така ж електронна пошта");
                 return SendVerificationCode();
 
             }
             _logger.LogInformation("Дані не пройшли валідацію");
-            return View(user);
+            return View(model);
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace KursovaWork.Controllers
         /// <param name="verification">Модель, що містить введений користувачем верифікаційний код.</param>
         /// <returns>Сторінка головного меню або сторінка введення верифікаційного коду з повідомленням про помилку.</returns>
         [HttpPost]
-        public async Task<IActionResult> Submit(VerificationViewModel verification)
+        public IActionResult Submit(VerificationViewModel verification)
         {
             _logger.LogInformation("Вхід у метод підтвердження реєстрації та перевірки валідаційного коду");
 
@@ -127,8 +128,7 @@ namespace KursovaWork.Controllers
                     return View("~/Views/SignUp/Submit.cshtml", verification);
                 }
 
-                _context.Add(_curUser);
-                await _context.SaveChangesAsync();
+                _userService.AddUser(_curUser);
                 _curUser = null;
                 _logger.LogInformation("Успішно зареєстровано користувача, перехід на головну сторінку");
                 return RedirectToAction("Index", "Home");
@@ -150,7 +150,7 @@ namespace KursovaWork.Controllers
 
             string subject = "Код підтвердження";
 
-            string body = EmailBodyTemplate.bodyTemp(_curUser.FirstName, _curUser.LastName, _verificationCode, "реєстрації");
+            string body = EmailBodyTemplate.BodyTemp(_curUser.FirstName, _curUser.LastName, _verificationCode, "реєстрації");
 
             _logger.LogInformation("Надсилаємо повідомлення на електронну пошту користувача та переходимо на сторінку з введенням коду");
 

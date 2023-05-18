@@ -2,7 +2,7 @@
 using KursovaWork.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Services;
+using KursovaWork.Services.MainServices.CarService;
 
 namespace KursovaWork.Controllers
 {
@@ -12,9 +12,9 @@ namespace KursovaWork.Controllers
     public class CarController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з автомобілями
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly ICarService _carService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
@@ -24,11 +24,11 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="CarController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="carService">Сервіс для роботи з автомобілями.</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        public CarController(CarSaleContext context, ILogger<CarController> logger)
+        public CarController(ICarService carService, ILogger<CarController> logger)
         {
-            _context = context;
+            _carService = carService;
             _logger = logger;
         }
 
@@ -42,24 +42,15 @@ namespace KursovaWork.Controllers
         public IActionResult Car(string param1, string param2, string param3)
         {
             _logger.LogInformation("Вхід у метод переходу на сторінку машини");
-            List<CarInfo> cars = _context.Cars
-                .Include(o => o.Detail)
-                .Include(o => o.Images)
-                .ToList();
-
-            _logger.LogInformation("Зчитування усіх можливих машин з бд");
 
             int year = int.Parse(param3);
 
-            _logger.LogInformation("Перехід у цикл ітерування по масиві");
-            foreach (var car in cars)
+            CarInfo car = _carService.GetCarByInfo(param1, param2, year);
+
+            if(car != null)
             {
-                _logger.LogInformation("Машина: " + car.Make + " " + car.Model + " " + car.Year + " року");
-                if (car.Make.Equals(param1) && car.Model.Equals(param2) && car.Year == year)
-                {
-                    _logger.LogInformation("Машину знайдено, перехід на сторінку машини");
-                    return View(car);
-                }
+                _logger.LogInformation("Машину знайдено, перехід на сторінку машини");
+                return View(car);
             }
 
             _logger.LogError("Машину не знайдено");

@@ -3,7 +3,7 @@ using KursovaWork.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KursovaWork.Entity.Entities;
-using KursovaWork.Services;
+using KursovaWork.Services.MainServices.CarService;
 
 namespace KursovaWork.Controllers
 {
@@ -13,9 +13,9 @@ namespace KursovaWork.Controllers
     public class ConfiguratorController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для роботи з автомобілями
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly ICarService _carService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
@@ -30,7 +30,7 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Об'єкт класу ConfiguratorOptions? (nullable), який вказує на обрані опції в конфігураторі
         /// </summary>
-        public static ConfiguratorOptions? _options { get; set; }
+        public static ConfiguratorOptions? options { get; set; }
 
         /// <summary>
         /// Масив рядків, в якому знаходяться: Марка машини - індекс 0, Модель машини - індекс 1, Рік виробництва - індекс 2
@@ -40,11 +40,11 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу <see cref="ConfiguratorController"/>.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSale.</param>
+        /// <param name="carService">Сервіс для роботи з автомобілями.</param>
         /// <param name="logger">Логгер для запису логів.</param>
-        public ConfiguratorController(CarSaleContext context, ILogger<ConfiguratorController> logger)
+        public ConfiguratorController(ICarService carService, ILogger<ConfiguratorController> logger)
         {
-            _context = context;
+            _carService = carService;
             _logger = logger;
         }
 
@@ -58,28 +58,17 @@ namespace KursovaWork.Controllers
         public IActionResult Configurator(string param1, string param2, string param3)
         {
             _logger.LogInformation("Вхід у функцію переходу на конфігуратор");
-            List<CarInfo> cars = _context.Cars
-                .Include(o => o.Detail)
-                .Include(o => o.Images)
-                .ToList();
 
-            _logger.LogInformation("Зчитування усіх можливих машин з бд");
-
-            param[0] = param1;
-            param[1] = param2;
-            param[2] = param3;
+            param = new []{ param1,param2,param3};
 
             int year = int.Parse(param3);
 
-            _logger.LogInformation("Перехід у цикл ітерування по масиві");
-            foreach (var car in cars)
+            CarInfo car = _carService.GetCarByInfo(param1, param2, year);
+            if(car != null)
             {
-                if (car.Make.Equals(param1) && car.Model.Equals(param2) && car.Year == year)
-                {
-                    _curCar = car;
-                    _logger.LogInformation("Машину знайдено, перехід на сторінку конфігуратора");
-                    return View(car);
-                }
+                _curCar = car;
+                _logger.LogInformation("Машину знайдено, перехід на сторінку конфігуратора");
+                return View(car);
             }
 
             _logger.LogError("Машину не знайдено");
@@ -116,11 +105,12 @@ namespace KursovaWork.Controllers
                 _logger.LogInformation("Тип палива не було обрано");
             }
 
-            _options = new ConfiguratorOptions();
-
-            _options.Color = color;
-            _options.FuelType = fuelType;
-            _options.Transmission = transmission;
+            options = new ConfiguratorOptions()
+            {
+                Color = color,
+                Transmission = transmission,
+                FuelType = fuelType
+            };
 
             if(string.IsNullOrEmpty(color) || string.IsNullOrEmpty(transmission) || string.IsNullOrEmpty(fuelType))
             {

@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace KursovaWork.Services
+namespace KursovaWork.Services.AdditionalServices
 {
     /// <summary>
     /// Клас для отримання ідентифікатора користувача.

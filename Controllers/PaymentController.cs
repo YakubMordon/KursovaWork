@@ -1,9 +1,13 @@
 ﻿using KursovaWork.Entity.Entities.Car;
 using KursovaWork.Entity.Entities;
 using KursovaWork.Entity;
-using KursovaWork.Services;
+using KursovaWork.Services.AdditionalServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KursovaWork.Services.MainServices.CarService;
+using KursovaWork.Services.MainServices.CardService;
+using KursovaWork.Services.MainServices.OrderService;
+using KursovaWork.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -13,19 +17,29 @@ namespace KursovaWork.Controllers
     public class PaymentController : Controller
     {
         /// <summary>
-        /// Контекст бази даних, завдяки якому можна працювати з бд
+        /// Сервіс для виконання дій зв'язаних з автомобілями
         /// </summary>
-        private readonly CarSaleContext _context;
+        private readonly ICarService _carService;
+
+        /// <summary>
+        /// Сервіс для виконання дій зв'язаних з картою
+        /// </summary>
+        private readonly ICardService _cardService;
+
+        /// <summary>
+        /// Сервіс для виконання дій зв'язаних з замовленнями
+        /// </summary>
+        private readonly IOrderService _orderService;
+
+        /// <summary>
+        /// Сервіс для виконання дії зв'язаних з користувачем
+        /// </summary>
+        private readonly IUserService _userService;
 
         /// <summary>
         /// Об'єкт класу ILogger для логування подій 
         /// </summary>
         private readonly ILogger<PaymentController> _logger;
-
-        /// <summary>
-        /// Об'єкт класу IDRetriever для получення ідентифікатора користувача
-        /// </summary>
-        private readonly IDRetriever _IDRetriever;
 
         /// <summary>
         /// Об'єкт класу CarInfo, який вказує на поточну машину
@@ -35,66 +49,60 @@ namespace KursovaWork.Controllers
         /// <summary>
         /// Ініціалізує новий екземпляр класу PaymentController.
         /// </summary>
-        /// <param name="context">Контекст бази даних CarSaleContext.</param>
+        /// <param name="carService">Сервіс для виконання дій зв'язаних з автомобілями.</param>
+        /// <param name="cardService">Сервіс для виконання дій зв'язаних з картою</param>
+        /// <param name="orderService">Сервіс для виконання дій зв'язаних з замовленнями</param>
+        /// <param name="userService">Сервіс для виконання дії зв'язаних з користувачем</param>
         /// <param name="logger">Об'єкт логування ILogger.</param>
-        /// <param name="idRetriever">Об'єкт для отримання ідентифікатора.</param>
-        public PaymentController(CarSaleContext context, ILogger<PaymentController> logger, IDRetriever idRetriever)
+        public PaymentController(ICarService carService, ICardService cardService, IOrderService orderService, IUserService userService, ILogger<PaymentController> logger)
         {
-            _context = context;
+            _carService = carService;
+            _cardService = cardService;
+            _orderService = orderService;
+            _userService = userService; 
             _logger = logger;
-            _IDRetriever = idRetriever;
         }
 
         /// <summary>
         /// Метод для обробки перевірки можливості оплати.
         /// </summary>
-        /// <param name="param1">Перший параметр.</param>
-        /// <param name="param2">Другий параметр.</param>
-        /// <param name="param3">Третій параметр.</param>
+        /// <param name="param1">Марка автомобіля</param>
+        /// <param name="param2">Модель автомобіля</param>
+        /// <param name="param3">Рік виробництва автомобіля</param>
         /// <returns>Результат операції.</returns>
         public IActionResult Payment(string param1, string param2, string param3)
         {
             _logger.LogInformation("Вхід у метод перевірки можливості оплати");
 
             _logger.LogInformation("Заполучення ідентифікатора користувача");
-            int loggedInUserId = _IDRetriever.GetLoggedInUserId();
+            User user = _userService.GetLoggedInUser();
 
-            if (loggedInUserId == 0)
+            if (user == null)
             {
                 _logger.LogInformation("Користувач не ввійшов у обліковий запис");
                 return View("~/Views/Payment/NotLoggedIn.cshtml");
             }
 
             _logger.LogInformation("Заполучення даних про метод оплати користувача");
-            var creditCard = _context.Cards.FirstOrDefault(c => c.UserId == loggedInUserId);
+            var creditCard = _cardService.GetByLoggedInUser();
 
             if (creditCard == null)
             {
                 _logger.LogInformation("Користувач не додав методу оплати");
                 return View("~/Views/Payment/CardNotConnected.cshtml");
             }
-
-            List<CarInfo> cars = _context.Cars
-            .Include(o => o.Detail)
-            .Include(o => o.Images)
-            .ToList();
-
-            _logger.LogInformation("Заполучення всіх можливих моделей з бази даних"); 
-
             int year = int.Parse(param3);
 
-            _logger.LogInformation("Перехід цикл ітерування у масиві");
-            foreach (var car in cars)
+            CarInfo car = _carService.GetCarByInfo(param1, param2, year);
+
+            if (car != null)
             {
-                if (car.Make.Equals(param1) && car.Model.Equals(param2) && car.Year == year)
-                {
-                    _curCar = car;
-                    _logger.LogInformation("Модель успішно знайдена");
+                _curCar = car;
+                _logger.LogInformation("Модель успішно знайдена");
 
-                    _logger.LogInformation("Перехід до підтвердження оплати");
+                _logger.LogInformation("Перехід до підтвердження оплати");
 
-                    return View(car);
-                }
+                return View(car);
             }
 
             _logger.LogWarning("Моделі не було знайдено");
@@ -110,64 +118,18 @@ namespace KursovaWork.Controllers
         {
             _logger.LogInformation("Перехід до методу підтвердження оплати за покупку");
 
-            _logger.LogInformation("Заполучення ідентифікатора користувача");
-            int loggedInUserId = _IDRetriever.GetLoggedInUserId();
+            int id = _orderService.AddOrderLoggedIn(_curCar);
 
-            Order order = new Order()
-            {
-                CarId = _curCar.Id,
-                UserId = loggedInUserId,
-                Price = _curCar.Price,
-                OrderDate = DateTime.Now
-            };
-
-            _logger.LogInformation("Створення заказу автомобіля");
-
-            if (ConfiguratorController._options != null)
-            {
-                order.ConfiguratorOptions = ConfiguratorController._options;
-                ConfiguratorController._options = null;
-                _logger.LogInformation("Автомобіль було обрано у конфігураторі");
-            }
-
-            _context.Orders.Add(order);
-
-            _context.SaveChanges();
-            _logger.LogInformation("Заказ є успішно доданий");
+            _logger.LogInformation("Номер замовлення повернено");
 
             _logger.LogInformation("Заполучення даних про користувача");
-            User user = _context.Users.SingleOrDefault(o => o.Id == loggedInUserId);
+            User user = _userService.GetLoggedInUser();
+
             string userName = user.FirstName + " " + user.LastName;
             string userEmail = user.Email;
 
-            string subject = $"Покупка автомобіля №{order.Id}";
-            string body = $@"
-                <html>
-                <head>
-                    <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                            font-size: 14px;
-                        }}
-                    </style>
-                </head>
-                <body>
-                    <h2>Шановний(а) {userName},</h2>
-                    <p>Дякуємо за вашу покупку!</p>
-                    <p>Ви придбали новий автомобіль {_curCar.Make} {_curCar.Model}, {_curCar.Year} року виробництва.</p>
-                    <p>Деталі вашого замовлення:</p>
-                    <ul>
-                        <li>Марка: {_curCar.Make}</li>
-                        <li>Модель: {_curCar.Model}</li>
-                        <li>Рік виробництва: {_curCar.Year} рік</li>
-                    </ul>
-                    <p>Додаткова інформація про замовлення знаходиться у нас на сайті в вашому особистому кабінеті</p>
-                    <p>Якщо у вас виникнуть будь-які питання або потреба у додатковій інформації, будь ласка, зв'яжіться з нашою службою підтримки.</p>
-                    <p>Дякуємо за вашу довіру!</p>
-                    <p>З повагою,</p>
-                    <p>VAG Dealer</p>
-                </body>
-                </html>";
+            string subject = $"Покупка автомобіля №{id}";
+            string body = EmailBodyTemplate.OrderBodyTemp(userName, _curCar.Make, _curCar.Model, _curCar.Year);
 
             EmailSender.SendEmail(userEmail, subject, body);
 
