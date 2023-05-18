@@ -1,10 +1,7 @@
-﻿using KursovaWork.Entity;
-using KursovaWork.Entity.Entities;
+﻿using KursovaWorkDAL.Entity.Entities;
 using KursovaWork.Models;
-using KursovaWork.Services.AdditionalServices;
-using KursovaWork.Services.MainServices.CardService;
+using KursovaWorkBLL.Services.MainServices.CardService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace KursovaWork.Controllers
 {

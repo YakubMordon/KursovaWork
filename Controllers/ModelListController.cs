@@ -1,10 +1,7 @@
-﻿using KursovaWork.Entity;
-using KursovaWork.Entity.Entities.Car;
+﻿using KursovaWorkDAL.Entity.Entities.Car;
 using KursovaWork.Models;
-using KursovaWork.Services.MainServices.CarService;
+using KursovaWorkBLL.Services.MainServices.CarService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace KursovaWork.Controllers
 {
@@ -123,7 +120,12 @@ namespace KursovaWork.Controllers
         /// <returns>Сторінка списку моделей автомобілів з відфільтрованим списком.</returns>
         public IActionResult ApplyFilters(FilterViewModel filter)
         {
-            _curList = _carService.Filtering(filter).ToList();
+            _curList = _carService.Filtering(filter.PriceFrom,filter.PriceTo,
+                filter.YearFrom,filter.YearTo,
+                filter.SelectedFuelTypes,
+                filter.SelectedTransmissionTypes,
+                filter.SelectedMakes)
+                .ToList();
 
             _logger.LogInformation("Встановлення відфільтрованого списку як поточного");
 

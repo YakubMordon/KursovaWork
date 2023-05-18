@@ -1,7 +1,4 @@
-﻿using KursovaWork.Entity;
-using KursovaWork.Entity.Entities;
-using KursovaWork.Services.AdditionalServices;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace KursovaWork.Models
 {

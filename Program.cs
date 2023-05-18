@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using KursovaWork.Services.AdditionalServices;
-using KursovaWork.Services.MainServices.CardService;
-using KursovaWork.Services.MainServices.CarService;
-using KursovaWork.Services.MainServices.OrderService;
-using KursovaWork.Services.MainServices.UserService;
-using KursovaWork.Entity;
-using KursovaWork.Repositories.UserRepository;
-using KursovaWork.Repositories.CarRepository;
-using KursovaWork.Repositories.CardRepository;
-using KursovaWork.Repositories.OrderRepository;
+using KursovaWorkBLL.Services.AdditionalServices;
+using KursovaWorkBLL.Services.MainServices.CardService;
+using KursovaWorkBLL.Services.MainServices.CarService;
+using KursovaWorkBLL.Services.MainServices.OrderService;
+using KursovaWorkBLL.Services.MainServices.UserService;
+using KursovaWorkDAL.Entity;
+using KursovaWorkDAL.Repositories.UserRepository;
+using KursovaWorkDAL.Repositories.CarRepository;
+using KursovaWorkDAL.Repositories.CardRepository;
+using KursovaWorkDAL.Repositories.OrderRepository;
 
 System.Console.OutputEncoding = System.Text.Encoding.UTF8;
 

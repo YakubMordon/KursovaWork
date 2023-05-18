@@ -1,8 +1,7 @@
-﻿using KursovaWork.Entity;
-using KursovaWork.Entity.Entities;
+﻿using KursovaWorkDAL.Entity.Entities;
 using KursovaWork.Models;
-using KursovaWork.Services.AdditionalServices;
-using KursovaWork.Services.MainServices.UserService;
+using KursovaWorkBLL.Services.AdditionalServices;
+using KursovaWorkBLL.Services.MainServices.UserService;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -133,7 +132,7 @@ namespace KursovaWork.Controllers
             {
                 _logger.LogInformation("Дані пройшли валідацію");
 
-                _userService.UpdatePasswordOfUser(model, _curUser);
+                _userService.UpdatePasswordOfUser(model.Password, model.ConfirmPassword, _curUser);
 
                 _logger.LogInformation("Успішно змінено пароль, переходимо на головну сторінку");
 

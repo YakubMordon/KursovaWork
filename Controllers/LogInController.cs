@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using KursovaWork.Entity;
-using KursovaWork.Services.MainServices.UserService;
+using KursovaWorkBLL.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -66,7 +65,7 @@ namespace KursovaWork.Controllers
             _logger.LogInformation("Вхід у метод перевірки даних входу");
             if (ModelState.IsValid)
             {
-                var user = _userService.ValidateUser(model);
+                var user = _userService.ValidateUser(model.Email, model.Password);
 
                 if (user != null)
                 {

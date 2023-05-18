@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using KursovaWork.Entity.Entities;
+using KursovaWorkDAL.Entity.Entities;
 
 namespace KursovaWork.Models
 {

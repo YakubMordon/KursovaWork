@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using KursovaWork.Models;
-using KursovaWork.Entity;
-using KursovaWork.Entity.Entities;
-using KursovaWork.Services.AdditionalServices;
+using KursovaWorkDAL.Entity.Entities;
+using KursovaWorkBLL.Services.AdditionalServices;
 using System.Text;
-using KursovaWork.Services.MainServices.CarService;
-using KursovaWork.Services.MainServices.UserService;
+using KursovaWorkBLL.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -83,7 +80,7 @@ namespace KursovaWork.Controllers
                 {
                     ModelState.AddModelError("Email", "User with this email already exists.");
                     _logger.LogInformation("Користувач з такою ж елекронною поштою існує");
-                    return View(user);
+                    return View(model);
                 }
                 _curUser = model.ToUser();
                 _logger.LogInformation("Успішно перевірено чи є така ж електронна пошта");

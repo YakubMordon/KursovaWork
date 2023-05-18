@@ -1,4 +1,4 @@
-﻿using KursovaWork.Entity.Entities.Car;
+﻿using KursovaWorkDAL.Entity.Entities.Car;
 
 namespace KursovaWork.Models
 {
@@ -30,17 +30,17 @@ namespace KursovaWork.Models
         /// <summary>
         /// Список обраних типів палива.
         /// </summary>
-        public List<string> SelectedFuelTypes { get; set; }
+        public string? SelectedFuelTypes { get; set; }
 
         /// <summary>
         /// Список обраних типів трансмісії.
         /// </summary>
-        public List<string> SelectedTransmissionTypes { get; set; }
+        public string? SelectedTransmissionTypes { get; set; }
 
         /// <summary>
         /// Список обраних марок автомобілів.
         /// </summary>
-        public List<string> SelectedMakes { get; set; }
+        public string? SelectedMakes { get; set; }
 
         /// <summary>
         /// Список моделів, на даний момент

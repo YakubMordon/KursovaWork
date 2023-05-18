@@ -1,13 +1,11 @@
-﻿using KursovaWork.Entity.Entities.Car;
-using KursovaWork.Entity.Entities;
-using KursovaWork.Entity;
-using KursovaWork.Services.AdditionalServices;
+﻿using KursovaWorkDAL.Entity.Entities.Car;
+using KursovaWorkDAL.Entity.Entities;
+using KursovaWorkBLL.Services.AdditionalServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using KursovaWork.Services.MainServices.CarService;
-using KursovaWork.Services.MainServices.CardService;
-using KursovaWork.Services.MainServices.OrderService;
-using KursovaWork.Services.MainServices.UserService;
+using KursovaWorkBLL.Services.MainServices.CarService;
+using KursovaWorkBLL.Services.MainServices.CardService;
+using KursovaWorkBLL.Services.MainServices.OrderService;
+using KursovaWorkBLL.Services.MainServices.UserService;
 
 namespace KursovaWork.Controllers
 {
@@ -118,7 +116,9 @@ namespace KursovaWork.Controllers
         {
             _logger.LogInformation("Перехід до методу підтвердження оплати за покупку");
 
-            int id = _orderService.AddOrderLoggedIn(_curCar);
+            int id = _orderService.AddOrderLoggedIn(_curCar, ConfiguratorController.options);
+
+            ConfiguratorController.options = null;
 
             _logger.LogInformation("Номер замовлення повернено");
 
