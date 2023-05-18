@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using KursovaWork.Services.MainServices.CarService;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KursovaWork.Services.AdditionalServices
 {
@@ -8,6 +9,12 @@ namespace KursovaWork.Services.AdditionalServices
     public static class ViewBagHelper
     {
         /// <summary>
+        /// Об'єкт класу ILogger для логування подій 
+        /// </summary>
+        private static readonly ILogger _logger = LoggerFactory.Create(builder => builder.AddConsole())
+            .CreateLogger(typeof(ViewBagHelper));
+
+        /// <summary>
         /// Встановлює значення IsLoggedIn в ViewBag на основі інформації про аутентифікацію користувача.
         /// </summary>
         /// <param name="viewContext">Контекст перегляду ViewContext.</param>
@@ -15,6 +22,7 @@ namespace KursovaWork.Services.AdditionalServices
         {
             bool isLoggedIn = viewContext.HttpContext.User.Identity.IsAuthenticated;
             viewContext.ViewBag.IsLoggedIn = isLoggedIn;
+            _logger.LogInformation("Успішно перевірено чи користувач є залогіненим");
         }
     }
 }

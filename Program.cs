@@ -11,6 +11,8 @@ using KursovaWork.Repositories.CarRepository;
 using KursovaWork.Repositories.CardRepository;
 using KursovaWork.Repositories.OrderRepository;
 
+System.Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<CarSaleContext>(options =>

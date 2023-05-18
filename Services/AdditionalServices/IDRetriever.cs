@@ -8,6 +8,13 @@ namespace KursovaWork.Services.AdditionalServices
     public class IDRetriever
     {
         /// <summary>
+        /// Об'єкт класу ILogger для логування подій 
+        /// </summary>
+        /// 
+        private static readonly ILogger _logger = LoggerFactory.Create(builder => builder.AddConsole())
+            .CreateLogger(typeof(IDRetriever));
+
+        /// <summary>
         /// Об'єкт класу IHttpContextAccessor для получення даних про користувача з Cookie
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -32,9 +39,11 @@ namespace KursovaWork.Services.AdditionalServices
 
             if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
             {
+                _logger.LogInformation("Користувач є залогіненим");
                 return userId;
             }
 
+            _logger.LogInformation("Користувач не є залогіненим");
             return 0;
         }
     }

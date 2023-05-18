@@ -9,16 +9,28 @@ namespace KursovaWork.Services.AdditionalServices
     public static class DbInitializer
     {
         /// <summary>
+        /// Об'єкт класу ILogger для логування подій 
+        /// </summary>
+        /// 
+        private static readonly ILogger _logger = LoggerFactory.Create(builder => builder.AddConsole())
+            .CreateLogger(typeof(DbInitializer));
+
+        /// <summary>
         /// Ініціалізує базу даних автомобільного продажу.
         /// </summary>
         public static void Initialize(CarSaleContext context)
         {
             context.Database.EnsureCreated();
 
+            _logger.LogInformation("Успішно перевірино чи база даних є створена");
+
             if (context.Cars.Any())
             {
+                _logger.LogInformation("В базі даних уже є автомобілі");
                 return; 
             }
+
+            _logger.LogInformation("В базі даних немає автомобілів");
 
             var carInfos = new List<CarInfo>
             {
@@ -227,12 +239,15 @@ namespace KursovaWork.Services.AdditionalServices
                 }
             };
 
+            _logger.LogInformation("Додання кожного автомобіля");
             foreach (var carInfo in carInfos)
             {
                 context.Cars.Add(carInfo);
             }
 
             context.SaveChanges();
+
+            _logger.LogInformation("Автомобілі були успішно додані");
         }
     }
 

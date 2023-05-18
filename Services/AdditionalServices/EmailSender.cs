@@ -10,6 +10,12 @@ namespace KursovaWork.Services.AdditionalServices
     public class EmailSender
     {
         /// <summary>
+        /// Об'єкт класу ILogger для логування подій 
+        /// </summary>
+        /// 
+        private static readonly ILogger _logger = LoggerFactory.Create(builder => builder.AddConsole())
+            .CreateLogger(typeof(EmailSender));
+        /// <summary>
         /// Надсилає електронний лист.
         /// </summary>
         /// <param name="mail">Електронна адреса отримувача.</param>
@@ -17,11 +23,15 @@ namespace KursovaWork.Services.AdditionalServices
         /// <param name="message">Тіло листа.</param>
         public static void SendEmail(string mail, string subject, string message)
         {
+            _logger.LogInformation("Вхід в метод надсилання листа");
+
             MimeMessage email = new MimeMessage();
             email.From.Add(new MailboxAddress("VAG Dealer", "baryaroman@ukr.net"));
             email.To.Add(new MailboxAddress("Шановний покупець", mail));
             email.Subject = subject;
             email.Body = new TextPart("html") { Text = message };
+
+            _logger.LogInformation("Дані для надсилання встановленні");
 
             using (SmtpClient smtp = new SmtpClient())
             {
@@ -30,6 +40,8 @@ namespace KursovaWork.Services.AdditionalServices
                 smtp.Send(email);
                 smtp.Disconnect(true);
             }
+
+            _logger.LogInformation("Лист був успішно надісланий");
         }
     }
 }
