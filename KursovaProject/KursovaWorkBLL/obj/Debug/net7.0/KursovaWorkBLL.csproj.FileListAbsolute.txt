@@ -1,0 +1,15 @@
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.csproj.AssemblyReference.cache
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.AssemblyInfoInputs.cache
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.AssemblyInfo.cs
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.csproj.CoreCompileInputs.cache
+D:\Backup\source\repos\KursovaWorkBLL\bin\Debug\net7.0\KursovaWorkBLL.deps.json
+D:\Backup\source\repos\KursovaWorkBLL\bin\Debug\net7.0\KursovaWorkBLL.dll
+D:\Backup\source\repos\KursovaWorkBLL\bin\Debug\net7.0\KursovaWorkBLL.pdb
+D:\Backup\source\repos\KursovaWorkBLL\bin\Debug\net7.0\KursovaWorkDAL.dll
+D:\Backup\source\repos\KursovaWorkBLL\bin\Debug\net7.0\KursovaWorkDAL.pdb
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.csproj.CopyComplete
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.dll
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\refint\KursovaWorkBLL.dll
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\KursovaWorkBLL.pdb
+D:\Backup\source\repos\KursovaWorkBLL\obj\Debug\net7.0\ref\KursovaWorkBLL.dll
