@@ -11,6 +11,7 @@ using KursovaWorkDAL.Repositories.CarRepository;
 using KursovaWorkDAL.Repositories.CardRepository;
 using KursovaWorkDAL.Repositories.OrderRepository;
 
+
 System.Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 var builder = WebApplication.CreateBuilder(args);
